@@ -19,6 +19,7 @@ Route::post('/registration', "RegistrationController@store");
 Route::get('/login',"LoginController@showLogin");
 Route::post('/login',"LoginController@doLogin");
 Route::get('/logout', "LoginController@doLogout");
+Route::get('/logout', "LoginController@abc");
 
 
 Route::get('/',"PagesController@registration");
