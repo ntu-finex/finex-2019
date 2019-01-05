@@ -114,9 +114,6 @@
 
                     </form>
 
-                    <div id="app">
-                        <example></example>
-                    </div>
                 </div>
             </div>
         </div>
