@@ -1,8 +1,13 @@
 <?php 
+    session_start();
     include('inc/header.php');
     require('secure/connect.php');
-    
-   include('auth/account_creation_process.php'); //function for processing account creation
+    if(isset($_SESSION['teamName']) == ""){
+        header("Location: index.php");
+    }
+    if(isset($_POST['submit'])){
+        include('auth/account_creation_process.php'); //function for processing account creation
+    }
 ?>
 
 <body>
@@ -22,20 +27,20 @@
                         <div>
                             <form id="my-form" name="my-form" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">Team Name</label>
+                                    <label for="teamName" class="col-md-4 col-form-label text-md-right">Team Name</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="name" class="form-control" name="name" placeholder="Enter your team name" autofocus>
+                                        <input type="text" id="teamName" class="form-control" name="teamName" placeholder="Enter your team name" autofocus>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="captainemail" class="col-md-4 col-form-label text-md-right">Captain's E-Mail Address</label>
                                     <div class="col-md-6">
-                                        <input type="email" id="captainemail" class="form-control" name="captainemail" placeholder="Enter captain's email">
+                                        <input type="email" id="captainEmail" class="form-control" name="captainEmail" placeholder="Enter captain's email">
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <label for="twoemail" class="col-md-4 col-form-label text-md-right">Member's E-Mail Address</label>
                                     <div class="col-md-6">
                                         <input type="email" id="twoemail" class="form-control" name="twoemail" placeholder="Enter member's email (optional)">
@@ -47,12 +52,12 @@
                                     <div class="col-md-6">
                                         <input type="email" id="threeemail" class="form-control" name="threeemail" placeholder="Enter member's email (optional)">
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group row">
-                                    <label for="contact_number" class="col-md-4 col-form-label text-md-right">Contact Number</label>
+                                    <label for="contactNumber" class="col-md-4 col-form-label text-md-right">Contact Number</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="contact_number" class="form-control" placeholder="Enter contact number" name="contact_number">
+                                        <input type="text" id="contactNumber" class="form-control" placeholder="Enter contact number" name="contactNumber">
                                     </div>
                                 </div>
                                 
@@ -92,22 +97,14 @@
     $(function(){
         $("#my-form").validate({
             rules:{
-                name:{
+                teamName:{
                     required: true,
                 },
-                captainemail:{
-                    required: true,
-                    email: true,
-                },
-                twoemail:{
+                captainEmail:{
                     required: true,
                     email: true,
                 },
-                threeemail:{
-                    required: true,
-                    email: true,
-                },
-                contact_number:{
+                contactNumber:{
                     required:true,
                 },
                 password:{

@@ -8,8 +8,7 @@
             <li class="nav-item active">
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="finex_registration.php">Sign Up</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.php">Login</a></li>
             <!-- <li class="nav-item dropdown"> -->
             <!-- <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">Dropdown</a> -->
         </ul>
