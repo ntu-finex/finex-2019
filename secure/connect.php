@@ -10,10 +10,10 @@
 	// }
 	
 	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	// $username = "ntu-i_root";
-	// $password = "a1a2a3";
+	// $username = "root";
+	// $password = "";
+	$username = "ntu-i_root";
+	$password = "a1a2a3";
 	$dbname = "ntu-iic_database";
 
 	try {
