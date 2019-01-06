@@ -5,7 +5,12 @@
 	
 	//set validation error flag as false
 	$error=false;
-	
+	$name= "";
+	$captainemail = "";
+	$twoemail = "";
+	$threeemail = "";
+	$contact_number = "";
+
 	//check if form is submitted
 	if(isset($_POST['signup'])){
 		$name=mysqli_real_escape_string($connection,$_POST['name']);
@@ -48,29 +53,10 @@
 	}
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Finex 2018 Registration</title>
-	<meta charset="utf-8">
-	<meta content="width=device-width,initial-scale=1.0" name="viewport" >
-	<link rel="stylesheet" href="css/w3.css" type="text/css" />
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Kreon" rel="stylesheet">
-	<style>
-		.fw1{
-			font-weight:1;
-		}
-		.spacebetweeninput{
-			margin-bottom:.5rem;
-		}
-	</style>
-</head>
+<?php include('inc/header.php');?>
+
 <body>
-	<?php include 'navbar.html'; ?>
+	<?php include('inc/navbar.php'); ?>
 	<br/>
 	<div class="w3-container w3-content">
 		<div class="w3-container" style="margin-bottom:1rem;">
@@ -85,7 +71,7 @@
 			</div>
 			<div class="spacebetweeninput">
 				<h5 style="font-family: 'Kreon', serif;">Captain's Email</h5>
-				<input type="text" style="width:60%;" value="<?php echo $captainemail;?>" name="captainemail" placeholder="Email here!" required class="w3-input w3-border" />
+				<input type="text" style="width:60%;" value		="<?php echo $captainemail;?>" name="captainemail" placeholder="Email here!" required class="w3-input w3-border" />
 				<span class="text-danger" style="color:red;"><?php if (isset($email_error)) echo $email_error; ?></span>
 			</div>
             <div class="spacebetweeninput">
