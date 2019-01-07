@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include('../inc/header.php');
-    require('../secure/connect.php');
+    include('inc/header.php');
+    require('secure/connect.php');
     if(isset($_SESSION['teamName']) == ""){
         header("Location: index.php");
     }

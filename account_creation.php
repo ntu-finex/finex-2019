@@ -1,12 +1,12 @@
 <?php 
     session_start();
-    include('../inc/header.php');
-    require('../secure/connect.php');
+    include('inc/header.php');
+    require('secure/connect.php');
     if(isset($_SESSION['teamName']) == ""){
         header("Location: index.php");
     }
     if(isset($_POST['submit'])){
-        include('auth/account_creation_process.php'); //function for processing account creation
+        include('php/account_creation_process.php'); //function for processing account creation
     }
 ?>
 

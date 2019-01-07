@@ -1,13 +1,13 @@
 <?php
     session_start();
-    include('../inc/header.php');
-    require('../secure/connect.php');
+    include('inc/header.php');
+    require('secure/connect.php');
 
     if(isset($_SESSION['teamName']) != ""){ //if logged in
         header("Location: user_dashboard.php");
     }
     if(isset($_POST['submit'])){
-        include('../php/login_process.php');
+        include('php/login_process.php');
     }
 ?>
 
