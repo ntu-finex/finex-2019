@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Kreon" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background:white;">
 	<a class="navbar-brand" href="#"><img class="logo" src="images/logo.png" height="40"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
                 if(isset($_SESSION["teamName"]) == ""){
                     echo '<li class="nav-item"><a class="nav-link" href="index.php">Login</a></li>';
                 }else{
-                    echo '<li class="nav-item"><a class="nav-link" href="../php/logout_process.php">Logout</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="php/logout_process.php">Logout</a></li>';
                 }
             ?>
             <!-- <li class="nav-item dropdown"> -->
@@ -42,3 +42,9 @@
     </div>
 </nav>
 </body>
+
+<style>
+    nav{
+        box-shadow: 0 1px 10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+</style>

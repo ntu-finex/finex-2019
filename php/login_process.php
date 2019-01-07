@@ -12,10 +12,11 @@
             $team = $stmt->fetch();
 
             if($team){
-                $_SESSION['teamName'] = $teamName;
+                $_SESSION['teamName'] = $team['teamName'];
+
                 header("Location: user_dashboard.php");
             }else{
-                echo "<script>alert('Wrong team name or password')</script>";
+                echo "<script>alert('Invalid Credentials')</script>";
             }
         }catch(PDOEXCEPTION $e){
             echo $e->getMessage();

@@ -26,7 +26,7 @@
         }
        
     }else{
-        header('Location: ../account_creation.php');
+        header('Location: account_creation.php');
         exit;
     }
 

@@ -8,13 +8,12 @@
 	// }else{
 	// 	die("Connection to database failed".mysqli_error($connection));
 	// }
-	
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
+	require('config.php');
+	$servername = DB_HOST;
+	$username = DB_USERNAME;
+	$password = DB_PASSWORD;
 	// $username = "ntu-i_root";
 	// $password = "a1a2a3";
-	$dbname = "ntu-iic_database";
 
 	try {
 		//Creating connection for mysql
