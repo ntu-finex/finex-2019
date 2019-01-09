@@ -1,5 +1,20 @@
 <?php
+    require_once('../secure/config.php');
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+    $teamName = $_SESSION['teamName'];
     
+    if(isset($_POST['choice'])){
+        switch($_POST['choice']){
+            case 1: echo round(getCash($teamName)['cash'],2);
+                    break;
+            case 2:  echo round(getPoints($teamName)['game_points'],2);
+                    break;
+        }
+        
+    }
     
     function getPoints($teamName){
         $servername = DB_HOST;

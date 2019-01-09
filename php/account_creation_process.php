@@ -30,7 +30,7 @@
              
 
         }catch(PDOEXCEPTION $e){
-            echo '<script>alert("There are some errors with the system")</script>'//$e->getMessage();
+            echo '<script>alert("There are some errors with the system")</script>';//$e->getMessage();
         }
        
     }else{
