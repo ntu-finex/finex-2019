@@ -7,12 +7,13 @@
     $conn = new PDO("mysql:host=$servername;dbname=ntu-iic_database", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $id = $_POST['id'];
-    $stockName = $_POST['stockName'];
-    $owner = $_POST['owner'];
+    // $stockName = $_POST['stockName'];
+    // $owner = $_POST['owner'];
     $buyer = $_SESSION['teamName'];
 
-    $query = $conn->prepare("SELECT * FROM stocks WHERE id=? AND name=? AND owner=? AND available = 1");
-    $query->execute([$id,$stockName,$owner]);
+    // $query = $conn->prepare("SELECT * FROM stocks WHERE id=? AND name=? AND owner=? AND available = 1");
+    $query = $conn->prepare("SELECT * FROM stocks WHERE id=? AND available = 1");
+    $query->execute([$id]);
 
     //stock is not available for purchase or stock is unavailable.
     if($query->rowCount() == 0){
@@ -31,10 +32,10 @@
             $update = $conn->prepare("UPDATE teams SET cash = ? WHERE teamName =?");
             $update->execute([$cash-$price,$buyer]);
 
-            $stmt = $conn->prepare("UPDATE stocks SET available = 0 , owner = ? WHERE id = ? AND name=?");
-            $stmt->execute([$buyer, $id, $stockName]);
+            $stmt = $conn->prepare("UPDATE stocks SET available = 0 , owner = ? WHERE id = ?");
+            $stmt->execute([$buyer, $id]);
 
-            echo 'Stock successfully purchased.';
+            echo $stock['name'];
         }   
     }
 

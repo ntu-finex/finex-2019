@@ -42,17 +42,22 @@
 <script>
     $( document ).ready(getCash(), getPoints());
 
-    function purchaseStock(){
+    function purchaseStock($id){
+        confirm("Are you sure you want to purchase this stock?");
         $.ajax({
             url:'php/stock_purchase.php',
             type: 'post',
             data:{
-                id: 1,
-                stockName: 'Apple Inc',
-                owner: 'Apple Inc',
+                id: $id,
             },
             success:function(result){
-                getCash();
+                if(result === 'Stock is unavailable for purchase.' || result === "You don't have enough cash to purchase the stocks."){
+                    alert(result);
+                }else{
+                    getCash();
+                    alert("You have successfully purchase the stock!");
+                    showStocks(result);
+                }
             }
         });
     }
@@ -93,11 +98,19 @@
             },
             dataType: 'json',
             success:function(result){
-                //console.log(result);
+                jQuery('#STOCK1S').empty();
+                var counter = 0;
                 $.each(result, function(key, value) { //for each value in list will be in value
-                    $("#STOCK1S").append('<div>' + value['owner'] + value['price'] + '</div>'); //I used the value as a specific item from list. 
+                    counter++;
+                    var name = value['name'];
+                    var owner = value['owner'];
+                    var id = value['id'];
+                    $("#STOCK1S").append(
+                        '<div style="border-style:dash">' + counter + '. ' + value['name'] + '<br>' + value['price'] + '<br>' + 
+                        value['owner'] + '<button id="abc" class="btn btn-primary" onclick="purchaseStock(\'' + id + '\')" style="padding:bottom:15px;float:right;">Purchase</button>' +'</div>' + '<hr>'
+                        
+                    ); //I used the value as a specific item from list. 
                 });
-                $('#STOCK1S').removeAttr('id');
             }
         })
     }
@@ -133,7 +146,7 @@
         <!-- Stocks' Market Price Area -->
         <div class="row" style="display:flex;">
             <div class="col-md-3">
-                <!-- <button type="button" class="btn btn-primary" onclick="getPoints()">click me</button> -->
+                <!-- <button type="button" class="btn btn-primary" onclick="purchaseStock()">click me</button> -->
                 <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock1" onclick="showStocks('<?php echo STOCK1 ?>')">
                     <h3><?php echo STOCK1 ?></h3>
                     <div class="stocks" >
@@ -152,16 +165,16 @@
                     <div class="modal-content">
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
-                           <?php echo STOCK1 ?>
+                           <?php echo STOCK1 ?> 
                     </h2>
                     <hr>
                     <div id="STOCK1S">
-                      
+                       <!-- stock display area -->
                     </div>
                     <div class="text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Purchase Stock
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK1 ?>')">Refresh
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
                         </button>
                         </div>
                     </div>
@@ -189,10 +202,13 @@
                             <strong><?php echo STOCK2?></strong>
                         </h2>
                         <hr>
+                        <div id="STOCK1S">
+                       <!-- stock display area -->
+                        </div>
                             <div class="text-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary">Purchase Stock
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK2 ?>')">Refresh
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -220,10 +236,13 @@
                             <strong><?php echo STOCK3 ?></strong>
                         </h2>
                         <hr>
+                    <div id="STOCK1S">
+                       <!-- stock display area -->
+                    </div>
                     <div class="text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Purchase Stock
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK3 ?>')">Refresh
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
                         </button>
                         </div>
                     </div>
@@ -251,10 +270,13 @@
                             <strong><?php echo STOCK4 ?></strong>
                         </h2>
                         <hr>
+                    <div id="STOCK1S">
+                       <!-- stock display area -->
+                    </div>
                     <div class="text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Purchase Stock
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK4 ?>')">Refresh
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
                         </button>
                         </div>
                     </div>
