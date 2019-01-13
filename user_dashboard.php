@@ -126,7 +126,7 @@
                         '<div style="border-style:dash">' + counter + '. ' + value['name'] + '<br>' + value['price'] + '<br>' + 
                         value['owner'] + '<button class="btn btn-primary" onclick="purchaseStock(\'' + id + '\')" style="padding:bottom:15px;float:right;">Purchase</button>' +'</div>' + '<hr>'
                         
-                    ).hide().fadeIn(1000); //I used the value as a specific item from list. 
+                    ).hide().fadeIn(700); //I used the value as a specific item from list. 
                 });
             }
         })
@@ -183,7 +183,7 @@
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
                            <?php echo STOCK1 ?>
-                           <button class="btn btn-primary" id="stock1_sell" style="float:right;">Sell</button>
+                           <button class="btn btn-danger" id="stock1_sell" style="float:right;">Sell</button>
                            <button class="btn btn-primary" id="stock1_buy" style="float:right;margin-right:15px;">Buy</button>
                     </h2>
                     <hr>
@@ -199,7 +199,17 @@
                             </div>
                         </div>
                         <div class="sell-tab">
-                            Sell
+                            <h6>Currently owned <strong><?php echo STOCK1 ?></strong> stock: 5 </h6>
+                            <br>
+                            <form id="my-form">
+                            <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
+                            <br>
+                            <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
+                            </form>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary">List It!</button>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -224,7 +234,7 @@
                         <div class="modal-body">
                         <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK2?></strong>
-                            <button class="btn btn-primary" id="stock2_sell" style="float:right;">Sell</button>
+                            <button class="btn btn-danger" id="stock2_sell" style="float:right;">Sell</button>
                            <button class="btn btn-primary" id="stock2_buy" style="float:right;margin-right:15px;">Buy</button>
                         </h2>
                         <hr>
@@ -240,7 +250,17 @@
                                 </div>
                         </div>
                         <div class="sell-tab">
-                            Sell
+                            <h6>Currently owned <strong><?php echo STOCK2 ?></strong> stock: 5 </h6>
+                            <br>
+                            <form id="my-form">
+                            <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
+                            <br>
+                            <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
+                            </form>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary">List It!</button>
+                            </div>
                         </div>
                         </div>
                     </div>
@@ -265,7 +285,7 @@
                         <div class="modal-body">
                         <h2 class="h2-responsive product-name">
                                 <strong><?php echo STOCK3 ?></strong>
-                                <button class="btn btn-primary" id="stock3_sell" style="float:right;">Sell</button>
+                                <button class="btn btn-danger" id="stock3_sell" style="float:right;">Sell</button>
                                 <button class="btn btn-primary" id="stock3_buy" style="float:right;margin-right:15px;">Buy</button>
                             </h2>
                             <hr>
@@ -281,7 +301,17 @@
                                 </div>
                             </div>
                             <div class="sell-tab">
-                                Sell
+                                <h6>Currently owned <strong><?php echo STOCK3 ?></strong> stock: 5 </h6>
+                                <br>
+                                <form id="my-form">
+                                <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
+                                <br>
+                                <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
+                                </form>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary">List It!</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -306,7 +336,7 @@
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK4 ?></strong>
-                            <button class="btn btn-primary" id="stock4_sell" style="float:right;">Sell</button>
+                            <button class="btn btn-danger" id="stock4_sell" style="float:right;">Sell</button>
                             <button class="btn btn-primary" id="stock4_buy" style="float:right;margin-right:15px;">Buy</button>
                         </h2>
                         <hr>
@@ -322,7 +352,17 @@
                             </div>
                         </div>
                         <div class="sell-tab">
-                            Sell
+                            <h6>Currently owned <strong><?php echo STOCK4 ?></strong> stock: 5 </h6>
+                            <br>
+                            <form id="my-form">
+                            <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
+                            <br>
+                            <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
+                            </form>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary">List It!</button>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -375,7 +415,20 @@
        text-align:center;
        margin-top: -10px;
    }
-   
-   
 </style>
 
+<script>
+    $(function(){
+        $("#my-form").validate({
+            rules:{
+                price:{
+                    required: true,
+                    number: true,
+                },
+            },
+            messages:{
+                
+            }
+        })
+    });
+</script>
