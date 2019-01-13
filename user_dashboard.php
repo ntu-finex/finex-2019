@@ -43,7 +43,9 @@
     $( document ).ready(getCash(), getPoints());
 
     function purchaseStock($id){
-        confirm("Are you sure you want to purchase this stock?");
+        if(!confirm("Are you sure you want to purchase this stock?")){
+            return false;
+        }
         $.ajax({
             url:'php/stock_purchase.php',
             type: 'post',
