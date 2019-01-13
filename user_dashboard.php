@@ -41,6 +41,17 @@
 ?>
 <script>
     $( document ).ready(getCash(), getPoints());
+    $(document).ready(function(){
+        $('.sell-tab').hide();
+        $('#stock1_sell,#stock2_sell,#stock3_sell,#stock4_sell').click(function(){
+            $('.buy-tab').hide();
+            $('.sell-tab').show();
+        });
+        $('#stock1_buy,#stock2_buy,#stock3_buy,#stock4_buy').click(function(){
+            $('.buy-tab').show();
+            $('.sell-tab').hide();
+        })
+    });
 
     function purchaseStock($id){
         if(!confirm("Are you sure you want to purchase this stock?")){
@@ -62,6 +73,10 @@
                 }
             }
         });
+    }
+
+    function sellStock($id){
+
     }
 
     function getCash(){
@@ -109,9 +124,9 @@
                     var id = value['id'];
                     $("#STOCK1S").append(
                         '<div style="border-style:dash">' + counter + '. ' + value['name'] + '<br>' + value['price'] + '<br>' + 
-                        value['owner'] + '<button id="abc" class="btn btn-primary" onclick="purchaseStock(\'' + id + '\')" style="padding:bottom:15px;float:right;">Purchase</button>' +'</div>' + '<hr>'
+                        value['owner'] + '<button class="btn btn-primary" onclick="purchaseStock(\'' + id + '\')" style="padding:bottom:15px;float:right;">Purchase</button>' +'</div>' + '<hr>'
                         
-                    ); //I used the value as a specific item from list. 
+                    ).hide().fadeIn(1000); //I used the value as a specific item from list. 
                 });
             }
         })
@@ -167,17 +182,24 @@
                     <div class="modal-content">
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
-                           <?php echo STOCK1 ?> 
+                           <?php echo STOCK1 ?>
+                           <button class="btn btn-primary" id="stock1_sell" style="float:right;">Sell</button>
+                           <button class="btn btn-primary" id="stock1_buy" style="float:right;margin-right:15px;">Buy</button>
                     </h2>
                     <hr>
-                    <div id="STOCK1S">
-                       <!-- stock display area -->
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK1 ?>')">Refresh
-                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                        </button>
+                        <div class="buy-tab">
+                            <div id="STOCK1S">
+                            <!-- stock display area -->
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK1 ?>')">Refresh
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="sell-tab">
+                            Sell
                         </div>
                     </div>
                     </div>
@@ -202,17 +224,24 @@
                         <div class="modal-body">
                         <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK2?></strong>
+                            <button class="btn btn-primary" id="stock2_sell" style="float:right;">Sell</button>
+                           <button class="btn btn-primary" id="stock2_buy" style="float:right;margin-right:15px;">Buy</button>
                         </h2>
                         <hr>
-                        <div id="STOCK1S">
-                       <!-- stock display area -->
-                        </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK2 ?>')">Refresh
-                                    <i class="fa fa-refresh" aria-hidden="true"></i>
-                                </button>
+                        <div class="buy-tab">
+                            <div id="STOCK1S">
+                            <!-- stock display area -->
                             </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK2 ?>')">Refresh
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                        </div>
+                        <div class="sell-tab">
+                            Sell
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -233,21 +262,28 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
-                    <div class="modal-body">
-                    <h2 class="h2-responsive product-name">
-                            <strong><?php echo STOCK3 ?></strong>
-                        </h2>
-                        <hr>
-                    <div id="STOCK1S">
-                       <!-- stock display area -->
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK3 ?>')">Refresh
-                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                        </button>
+                        <div class="modal-body">
+                        <h2 class="h2-responsive product-name">
+                                <strong><?php echo STOCK3 ?></strong>
+                                <button class="btn btn-primary" id="stock3_sell" style="float:right;">Sell</button>
+                                <button class="btn btn-primary" id="stock3_buy" style="float:right;margin-right:15px;">Buy</button>
+                            </h2>
+                            <hr>
+                            <div class="buy-tab">
+                                <div id="STOCK1S">
+                                <!-- stock display area -->
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK3 ?>')">Refresh
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="sell-tab">
+                                Sell
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 </div>
@@ -270,16 +306,23 @@
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK4 ?></strong>
+                            <button class="btn btn-primary" id="stock4_sell" style="float:right;">Sell</button>
+                            <button class="btn btn-primary" id="stock4_buy" style="float:right;margin-right:15px;">Buy</button>
                         </h2>
                         <hr>
-                    <div id="STOCK1S">
-                       <!-- stock display area -->
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK4 ?>')">Refresh
-                            <i class="fa fa-refresh" aria-hidden="true"></i>
-                        </button>
+                        <div class="buy-tab">
+                            <div id="STOCK1S">
+                            <!-- stock display area -->
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK4 ?>')">Refresh
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="sell-tab">
+                            Sell
                         </div>
                     </div>
                     </div>
