@@ -160,14 +160,14 @@
             },
             dataType: 'json',
             success:function(result){
-                jQuery('#STOCK1S').empty();
+                jQuery('.STOCK1S').empty();
                 var counter = 0;
                 $.each(result, function(key, value) { //for each value in list will be in value
                     counter++;
                     var name = value['name'];
                     var owner = value['owner'];
                     var id = value['id'];
-                    $("#STOCK1S").append(
+                    $(".STOCK1S").append(
                         '<div style="border-style:dash">' + counter + '. ' + value['name'] + '<br>' + value['price'] + '<br>' + 
                         value['owner'] + '<button class="btn btn-primary" onclick="purchaseStock(\'' + id + '\')" style="padding:bottom:15px;float:right;">Purchase</button>' +'</div>' + '<hr>'
                         
@@ -186,10 +186,13 @@
             },
             dataType: 'json',
             success:function(result){
-                jQuery('#stocks-owned').empty();
+                jQuery('.stocks-owned').empty();
                 $('#ownedQty').empty();
                 var counter = 0;
-                $('#ownedQty').append(result.length);
+                var length = 0;
+                console.log(result.length);
+                length = result.length;
+                $('#ownedQty').append(length);
                 $.each(result, function(key, value) { //for each value in list will be in value
                     counter++;
                     var name = value['name'];
@@ -201,7 +204,7 @@
                     }else{
                         available = "Available for sale";
                     }
-                    $("#stocks-owned").append(
+                    $(".stocks-owned").append(
                         '<div class="alert" style="background:grey;color:white;">' + counter + '. ' + value['name'] + '      ' + value['price'] + '<br>' + available + '<br>'+
                         '</div>' + '<hr>'
                         
@@ -267,7 +270,7 @@
                     </h2>
                     <hr>
                         <div class="buy-tab">
-                            <div id="STOCK1S">
+                            <div class="STOCK1S">
                             <!-- stock display area -->
                             </div>
                             <div class="text-center">
@@ -292,7 +295,7 @@
                             <div>
                                 <h6>Currently owned <strong><?php echo STOCK1 ?></strong> stock: <span id="ownedQty"></span> </h6>
                                 <br>
-                                <div id="stocks-owned">
+                                <div class="stocks-owned">
                                     
                                 </div>
                             </div>
@@ -320,12 +323,12 @@
                         <div class="modal-body">
                         <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK2?></strong>
-                            <button class="btn btn-danger" id="stock2_sell" style="float:right;">Sell</button>
+                            <button class="btn btn-danger" id="stock2_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK2 ?>')">Sell</button>
                            <button class="btn btn-primary" id="stock2_buy" style="float:right;margin-right:15px;">Buy</button>
                         </h2>
                         <hr>
                         <div class="buy-tab">
-                            <div id="STOCK1S">
+                            <div class="STOCK1S">
                             <!-- stock display area -->
                             </div>
                                 <div class="text-center">
@@ -336,8 +339,6 @@
                                 </div>
                         </div>
                         <div class="sell-tab">
-                            <h6>Currently owned <strong><?php echo STOCK2 ?></strong> stock: 5 </h6>
-                            <br>
                             <form id="my-form2">
                             <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
                             <br>
@@ -348,6 +349,14 @@
                                 <button class="btn btn-primary listit" id="stock2_list">List It!</button>
                             </div>
                             </form>
+                            <hr>
+                            <div>
+                                <h6>Currently owned <strong><?php echo STOCK2 ?></strong> stock: <span id="ownedQty"></span> </h6>
+                                <br>
+                                <div class="stocks-owned">
+                                    
+                                </div>
+                            </div>
                         </div>
                         </div>
                     </div>
@@ -372,12 +381,12 @@
                         <div class="modal-body">
                         <h2 class="h2-responsive product-name">
                                 <strong><?php echo STOCK3 ?></strong>
-                                <button class="btn btn-danger" id="stock3_sell" style="float:right;">Sell</button>
+                                <button class="btn btn-danger" id="stock3_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK3 ?>')">Sell</button>
                                 <button class="btn btn-primary" id="stock3_buy" style="float:right;margin-right:15px;">Buy</button>
                             </h2>
                             <hr>
                             <div class="buy-tab">
-                                <div id="STOCK1S">
+                                <div class="STOCK1S">
                                 <!-- stock display area -->
                                 </div>
                                 <div class="text-center">
@@ -388,8 +397,6 @@
                                 </div>
                             </div>
                             <div class="sell-tab">
-                                <h6>Currently owned <strong><?php echo STOCK3 ?></strong> stock: 5 </h6>
-                                <br>
                                 <form id="my-form3">
                                 <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
                                 <br>
@@ -400,6 +407,14 @@
                                     <button class="btn btn-primary listit" id="stock3_list">List It!</button>
                                 </div>
                                 </form>
+                                <hr>
+                                <div>
+                                    <h6>Currently owned <strong><?php echo STOCK3 ?></strong> stock: <span id="ownedQty"></span> </h6>
+                                    <br>
+                                    <div class="stocks-owned">
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -424,12 +439,12 @@
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK4 ?></strong>
-                            <button class="btn btn-danger" id="stock4_sell" style="float:right;">Sell</button>
+                            <button class="btn btn-danger" id="stock4_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK4 ?>')">Sell</button>
                             <button class="btn btn-primary" id="stock4_buy" style="float:right;margin-right:15px;">Buy</button>
                         </h2>
                         <hr>
                         <div class="buy-tab">
-                            <div id="STOCK1S">
+                            <div class="STOCK1S">
                             <!-- stock display area -->
                             </div>
                             <div class="text-center">
@@ -440,8 +455,6 @@
                             </div>
                         </div>
                         <div class="sell-tab">
-                            <h6>Currently owned <strong><?php echo STOCK4 ?></strong> stock: 5 </h6>
-                            <br>
                             <form id="my-form4">
                             <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
                             <br>
@@ -452,6 +465,14 @@
                                 <button class="btn btn-primary listit" id="stock4_list">List It!</button>
                             </div>
                             </form>
+                            <hr>
+                            <div>
+                                <h6>Currently owned <strong><?php echo STOCK4 ?></strong> stock: <span id="ownedQty"></span> </h6>
+                                <br>
+                                <div class="stocks-owned">
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
                     </div>
