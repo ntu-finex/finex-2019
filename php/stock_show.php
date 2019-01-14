@@ -9,7 +9,8 @@
     $buyer = $_SESSION['teamName'];
     $stockName = $_GET['name'];
 
-    $query = $conn->prepare('SELECT * FROM stocks WHERE name=? AND available = 1 AND owner<>?');
+    //only display stocks not owned by the user.
+    $query = $conn->prepare('SELECT * FROM stocks WHERE name=? AND available = 1 AND owner <> ?');
     $query->execute([$stockName,$buyer]);
     $stocks = $query->fetchAll();
 

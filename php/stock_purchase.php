@@ -24,16 +24,28 @@
 
         $sql = $conn->prepare("SELECT * FROM teams WHERE teamName=?");
         $sql->execute([$buyer]);
-        $cash = ($sql->fetch())['cash']; //cash that the buyer own
+        $buyerCash = ($sql->fetch())['cash']; //cash that the buyer own
+        $seller = $stock['owner'];
 
-        if($price > $cash){
+        if($price > $buyerCash){
             echo "You don't have enough cash to purchase the stocks.";
         }else{
+            //deduct cash from buyer
             $update = $conn->prepare("UPDATE teams SET cash = ? WHERE teamName =?");
-            $update->execute([$cash-$price,$buyer]);
+            $update->execute([$buyerCash-$price,$buyer]);
 
+            //update ownership of the stock
             $stmt = $conn->prepare("UPDATE stocks SET available = 0 , owner = ? WHERE id = ?");
             $stmt->execute([$buyer, $id]);
+
+            //add cash to seller of the stock
+            $query = $conn->prepare("SELECT * FROM teams WHERE teamName=?");
+            $query->execute([$seller]);
+            $sellerCash = ($query->fetch())['cash'];
+
+            $update = $conn->prepare("UPDATE teams SET cash =? WHERE teamName = ?");
+            $update->execute([$sellerCash+$price,$seller]);
+
 
             echo $stock['name'];
         }   

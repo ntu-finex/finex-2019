@@ -26,8 +26,8 @@
 
     $Apple = $stocks->getCompanyStock(STOCK1);
     $Tesla = $stocks->getCompanyStock(STOCK2);
-    $Google = $stocks->getCompanyStock(STOCK3);
-    $Microsoft = $stocks->getCompanyStock(STOCK4);
+    $Google = $stocks->getCompanyStock(STOCK4);
+    $Microsoft = $stocks->getCompanyStock(STOCK3);
     //get the difference between current price and previous price
     function getDifference($stock){
         return ($stock['current_price'] - $stock['previous_price']);
@@ -50,8 +50,56 @@
         $('#stock1_buy,#stock2_buy,#stock3_buy,#stock4_buy').click(function(){
             $('.buy-tab').show();
             $('.sell-tab').hide();
-        })
+        });
+
+        //sell_stock function
+        $(".listit").click(function(e){
+            var name = '';
+            switch(e.target.id){
+                case 'stock1_list': name = "Apple Inc"; break;
+                case 'stock2_list': name = "Tesla Inc"; break;
+                case 'stock3_list': name = "Microsoft Inc"; break;
+                case 'stock4_list': name = "Google Inc"; break;
+                default: break;
+            }
+            sellStock(name);
+        });
     });
+
+    function sellStock(stockName){
+        $('form').each(function(){
+            var validator = $(this).validate({
+                errorPlacement: function(label, element) {
+                    label.insertAfter(element);
+                },
+                rules:{
+                    price:{
+                        required: true,
+                        number: true,
+                        greaterThanZero: true,
+                    },
+                },
+                messages:{
+                    price:{
+                        greaterThanZero: "Please enter a positive value."
+                    }
+                },
+                submitHandler: function(form) {
+                    $(form).ajaxSubmit({
+                        url: 'php/stock_sell.php',
+                        type: 'post',
+                        data: {
+                            name : stockName
+                        },
+                        success: function(result) { 
+                            alert(result); 
+                            showStocksOwned(stockName);
+                        }
+                    });
+                }
+            });
+        });
+    }
 
     function purchaseStock($id){
         if(!confirm("Are you sure you want to purchase this stock?")){
@@ -75,9 +123,6 @@
         });
     }
 
-    function sellStock($id){
-
-    }
 
     function getCash(){
         $.ajax({
@@ -126,7 +171,41 @@
                         '<div style="border-style:dash">' + counter + '. ' + value['name'] + '<br>' + value['price'] + '<br>' + 
                         value['owner'] + '<button class="btn btn-primary" onclick="purchaseStock(\'' + id + '\')" style="padding:bottom:15px;float:right;">Purchase</button>' +'</div>' + '<hr>'
                         
-                    ).hide().fadeIn(700); //I used the value as a specific item from list. 
+                    ).hide().fadeIn(700); //Value as a specific item from list. 
+                });
+            }
+        })
+    }
+
+    function showStocksOwned($stockName){
+        $.ajax({
+            url: 'php/stock_owned.php',
+            type: 'GET',
+            data:{
+                name: $stockName,
+            },
+            dataType: 'json',
+            success:function(result){
+                jQuery('#stocks-owned').empty();
+                $('#ownedQty').empty();
+                var counter = 0;
+                $('#ownedQty').append(result.length);
+                $.each(result, function(key, value) { //for each value in list will be in value
+                    counter++;
+                    var name = value['name'];
+                    var owner = value['owner'];
+                    var id = value['id'];
+                    var available = value['available'];
+                    if(available == 1){
+                        available = "Currently Listed for sale";
+                    }else{
+                        available = "Available for sale";
+                    }
+                    $("#stocks-owned").append(
+                        '<div class="alert" style="background:grey;color:white;">' + counter + '. ' + value['name'] + '      ' + value['price'] + '<br>' + available + '<br>'+
+                        '</div>' + '<hr>'
+                        
+                    ).hide().fadeIn(700); //Value as a specific item from list. 
                 });
             }
         })
@@ -183,7 +262,7 @@
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
                            <?php echo STOCK1 ?>
-                           <button class="btn btn-danger" id="stock1_sell" style="float:right;">Sell</button>
+                           <button class="btn btn-danger" id="stock1_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK1 ?>')">Sell</button>
                            <button class="btn btn-primary" id="stock1_buy" style="float:right;margin-right:15px;">Buy</button>
                     </h2>
                     <hr>
@@ -199,16 +278,23 @@
                             </div>
                         </div>
                         <div class="sell-tab">
-                            <h6>Currently owned <strong><?php echo STOCK1 ?></strong> stock: 5 </h6>
-                            <br>
-                            <form id="my-form">
+                            <form id="my-form1">
                             <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
                             <br>
                             <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
-                            </form>
+                            <br>
                             <div class="text-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary">List It!</button>
+                                <button class="btn btn-primary listit" id="stock1_list">List It!</button>
+                            </div>
+                            </form>
+                            <hr>
+                            <div>
+                                <h6>Currently owned <strong><?php echo STOCK1 ?></strong> stock: <span id="ownedQty"></span> </h6>
+                                <br>
+                                <div id="stocks-owned">
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -252,15 +338,16 @@
                         <div class="sell-tab">
                             <h6>Currently owned <strong><?php echo STOCK2 ?></strong> stock: 5 </h6>
                             <br>
-                            <form id="my-form">
+                            <form id="my-form2">
                             <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
                             <br>
                             <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
-                            </form>
+                            <br>
                             <div class="text-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary">List It!</button>
+                                <button class="btn btn-primary listit" id="stock2_list">List It!</button>
                             </div>
+                            </form>
                         </div>
                         </div>
                     </div>
@@ -303,15 +390,16 @@
                             <div class="sell-tab">
                                 <h6>Currently owned <strong><?php echo STOCK3 ?></strong> stock: 5 </h6>
                                 <br>
-                                <form id="my-form">
+                                <form id="my-form3">
                                 <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
                                 <br>
                                 <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
-                                </form>
+                                <br>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary">List It!</button>
+                                    <button class="btn btn-primary listit" id="stock3_list">List It!</button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -354,15 +442,16 @@
                         <div class="sell-tab">
                             <h6>Currently owned <strong><?php echo STOCK4 ?></strong> stock: 5 </h6>
                             <br>
-                            <form id="my-form">
+                            <form id="my-form4">
                             <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
                             <br>
                             <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
-                            </form>
+                            <br>
                             <div class="text-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary">List It!</button>
+                                <button class="btn btn-primary listit" id="stock4_list">List It!</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                     </div>
@@ -415,20 +504,15 @@
        text-align:center;
        margin-top: -10px;
    }
+    label.error {
+        height:17px;
+        padding:1px 5px 0px 5px;
+        color: red;
+    }
 </style>
 
 <script>
-    $(function(){
-        $("#my-form").validate({
-            rules:{
-                price:{
-                    required: true,
-                    number: true,
-                },
-            },
-            messages:{
-                
-            }
-        })
-    });
+    jQuery.validator.addMethod("greaterThanZero", function(value) {
+        return (parseFloat(value) >= 0);
+    }); // Amount must be greater than zero");
 </script>
