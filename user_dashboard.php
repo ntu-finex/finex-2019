@@ -168,8 +168,8 @@
                     var owner = value['owner'];
                     var id = value['id'];
                     $(".STOCK1S").append(
-                        '<div style="border-style:dash">' + counter + '. ' + value['name'] + '<br>' + value['price'] + '<br>' + 
-                        value['owner'] + '<button class="btn btn-primary" onclick="purchaseStock(\'' + id + '\')" style="padding:bottom:15px;float:right;">Purchase</button>' +'</div>' + '<hr>'
+                        '<button class="btn col-xs-3 stocks_box alert vibrate-1" onclick="purchaseStock(\'' + id + '\')">' + '<strong>' +value['name'] +'</strong>' + '<br>' + value['price'] + '<br>' + 
+                        value['owner'] + '<br>' +'</button>' + '<hr>'
                         
                     ).hide().fadeIn(700); //Value as a specific item from list. 
                 });
@@ -187,12 +187,12 @@
             dataType: 'json',
             success:function(result){
                 jQuery('.stocks-owned').empty();
-                $('#ownedQty').empty();
+                $('.ownedQty').empty();
                 var counter = 0;
                 var length = 0;
                 console.log(result.length);
                 length = result.length;
-                $('#ownedQty').append(length);
+                $('.ownedQty').html(length);
                 $.each(result, function(key, value) { //for each value in list will be in value
                     counter++;
                     var name = value['name'];
@@ -270,9 +270,10 @@
                     </h2>
                     <hr>
                         <div class="buy-tab">
-                            <div class="STOCK1S">
-                            <!-- stock display area -->
+                            <div class="container">
+                                <div class="STOCK1S row" style="text-align: center;margin:0 auto;"><!-- stock display area --></div>
                             </div>
+                            <hr>
                             <div class="text-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK1 ?>')">Refresh
@@ -293,7 +294,7 @@
                             </form>
                             <hr>
                             <div>
-                                <h6>Currently owned <strong><?php echo STOCK1 ?></strong> stock: <span id="ownedQty"></span> </h6>
+                                <h6>Currently owned <strong><?php echo STOCK1 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
                                 <div class="stocks-owned">
                                     
@@ -328,9 +329,10 @@
                         </h2>
                         <hr>
                         <div class="buy-tab">
-                            <div class="STOCK1S">
-                            <!-- stock display area -->
+                            <div class="container">
+                                <div class="STOCK1S row" style="text-align: center;margin:0 auto;"><!-- stock display area --></div>
                             </div>
+                            <hr>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK2 ?>')">Refresh
@@ -351,7 +353,7 @@
                             </form>
                             <hr>
                             <div>
-                                <h6>Currently owned <strong><?php echo STOCK2 ?></strong> stock: <span id="ownedQty"></span> </h6>
+                                <h6>Currently owned <strong><?php echo STOCK2 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
                                 <div class="stocks-owned">
                                     
@@ -386,9 +388,10 @@
                             </h2>
                             <hr>
                             <div class="buy-tab">
-                                <div class="STOCK1S">
-                                <!-- stock display area -->
+                                <div class="container">
+                                    <div class="STOCK1S row" style="text-align: center;margin:0 auto;"><!-- stock display area --></div>
                                 </div>
+                                <hr>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK3 ?>')">Refresh
@@ -409,7 +412,7 @@
                                 </form>
                                 <hr>
                                 <div>
-                                    <h6>Currently owned <strong><?php echo STOCK3 ?></strong> stock: <span id="ownedQty"></span> </h6>
+                                    <h6>Currently owned <strong><?php echo STOCK3 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                     <br>
                                     <div class="stocks-owned">
                                         
@@ -444,9 +447,10 @@
                         </h2>
                         <hr>
                         <div class="buy-tab">
-                            <div class="STOCK1S">
-                            <!-- stock display area -->
+                            <div class="container">
+                                <div class="STOCK1S row" style="text-align: center;margin:0 auto;"><!-- stock display area --></div>
                             </div>
+                            <hr>
                             <div class="text-center">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button class="btn btn-primary" onclick="showStocks('<?php echo STOCK4 ?>')">Refresh
@@ -467,7 +471,7 @@
                             </form>
                             <hr>
                             <div>
-                                <h6>Currently owned <strong><?php echo STOCK4 ?></strong> stock: <span id="ownedQty"></span> </h6>
+                                <h6>Currently owned <strong><?php echo STOCK4 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
                                 <div class="stocks-owned">
                                     
@@ -530,6 +534,84 @@
         padding:1px 5px 0px 5px;
         color: red;
     }
+    .stocks_box{
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        background: rgb(255,255,200); 
+        width: 48%;
+    }
+    .stocks_box:active{
+        top: 3px;
+        box-shadow: 0 2px 0 #0b5ea3;
+    }
+    .vibrate-1 {
+	-webkit-animation: vibrate-1 0.3s 1s linear 3 both;
+	        animation: vibrate-1 0.3s 1s linear 3 both;
+    }
+  /* ----------------------------------------------
+ * Generated by Animista on 2019-1-14 22:31:48
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation vibrate-1
+ * ----------------------------------------
+ */
+@-webkit-keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+            transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+            transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+            transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+            transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+@keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+            transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+            transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+            transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+            transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+
+
 </style>
 
 <script>
