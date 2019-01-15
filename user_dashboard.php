@@ -52,53 +52,53 @@
             $('.sell-tab').hide();
         });
 
-        //sell_stock function
-        $(".listit").click(function(e){
-            var name = '';
-            switch(e.target.id){
-                case 'stock1_list': name = "Apple Inc"; break;
-                case 'stock2_list': name = "Tesla Inc"; break;
-                case 'stock3_list': name = "Microsoft Inc"; break;
-                case 'stock4_list': name = "Google Inc"; break;
-                default: break;
-            }
-            sellStock(name);
-        });
     });
+    function cancelStock($id){
+        if(!confirm("Are you sure you want to cancel your listing?")){
+            return false;
+        }
 
-    function sellStock(stockName){
-        $('form').each(function(){
-            var validator = $(this).validate({
-                errorPlacement: function(label, element) {
-                    label.insertAfter(element);
-                },
-                rules:{
-                    price:{
-                        required: true,
-                        number: true,
-                        greaterThanZero: true,
-                    },
-                },
-                messages:{
-                    price:{
-                        greaterThanZero: "Please enter a positive value."
-                    }
-                },
-                submitHandler: function(form) {
-                    $(form).ajaxSubmit({
-                        url: 'php/stock_sell.php',
-                        type: 'post',
-                        data: {
-                            name : stockName
-                        },
-                        success: function(result) { 
-                            alert(result); 
-                            showStocksOwned(stockName);
-                        }
-                    });
+        $.ajax({
+            url: 'php/stock_cancel.php',
+            method: 'post',
+            data:{
+                id: $id,
+            },
+            success:function(response){
+                if(response == 'You don\'t have any stock for cancellation.'){
+                    alert(response);
+                }else{
+                    showStocksOwned(response);
                 }
-            });
-        });
+            }
+        })
+    }
+
+    function sellStock($id){
+        var priceStock = prompt("Please enter your listing price");
+        if (priceStock == null) {
+            return false;
+        }else if(priceStock <= 0){
+            alert("The price is invalid");
+            return false;
+        }
+
+        $.ajax({
+            url: 'php/stock_sell.php',
+            type: 'post',
+            data:{
+                id: $id,
+                price: priceStock,
+            },
+            success:function(response){
+                if(response == 'You don\'t have any stock for sale.'){
+                    alert(response);
+                }else{
+                    alert("The stock "+response+" has been listed for sale.");
+                    showStocksOwned(response);
+                }
+            }
+        })
     }
 
     function purchaseStock($id){
@@ -168,7 +168,8 @@
                     var owner = value['owner'];
                     var id = value['id'];
                     $(".STOCK1S").append(
-                        '<button class="btn col-xs-3 stocks_box alert vibrate-1" onclick="purchaseStock(\'' + id + '\')">' + '<strong>' +value['name'] +'</strong>' + '<br>' + value['price'] + '<br>' + 
+                        '<button class="btn col-xs-3 stocks_box alert vibrate-1" onclick="purchaseStock(\'' + id + '\')">' + '<strong>' +
+                        value['name'] +'</strong>' + '<br>' + value['price'] + '<br>' + 
                         value['owner'] + '<br>' +'</button>' + '<hr>'
                         
                     ).hide().fadeIn(700); //Value as a specific item from list. 
@@ -188,28 +189,38 @@
             success:function(result){
                 jQuery('.stocks-owned').empty();
                 $('.ownedQty').empty();
-                var counter = 0;
                 var length = 0;
-                console.log(result.length);
                 length = result.length;
                 $('.ownedQty').html(length);
                 $.each(result, function(key, value) { //for each value in list will be in value
-                    counter++;
                     var name = value['name'];
                     var owner = value['owner'];
                     var id = value['id'];
                     var available = value['available'];
+
                     if(available == 1){
-                        available = "Currently Listed for sale";
+                        status = "Listed";
                     }else{
-                        available = "Available for sale";
+                        status = "Not listed";
                     }
-                    $(".stocks-owned").append(
-                        '<div class="alert" style="background:grey;color:white;">' + counter + '. ' + value['name'] + '      ' + value['price'] + '<br>' + available + '<br>'+
-                        '</div>' + '<hr>'
-                        
-                    ).hide().fadeIn(700); //Value as a specific item from list. 
+                    const color = available == 0 ? "'btn col-xs-3 stocks_box alert' style='background:green;color:white;'":
+                    "'btn col-xs-3 stocks_box alert' style='background:red;color:white;'";
+                    
+                    var sell = '<button onclick="sellStock(\'' + id + '\')" class=' + color + '>' + value['name'] + '      ' + '<br>' + value['price'] + '<br>' + status + '<br>'+
+                        '</button>';
+
+                    var cancel = '<button onclick="cancelStock(\'' + id + '\')" class=' + color + '>' + value['name'] + '      ' + '<br>' + value['price'] + '<br>' + status + '<br>'+
+                        '</button>';
+
+                    if(available == 0){
+                        var div = sell;
+                    }else{
+                        var div = cancel;
+                    }
+
+                    $(".stocks-owned").append(div).hide().fadeIn(700); //Value as a specific item from list. 
                 });
+                
             }
         })
     }
@@ -246,7 +257,7 @@
         <div class="row" style="display:flex;">
             <div class="col-md-3">
                 <!-- <button type="button" class="btn btn-primary" onclick="purchaseStock()">click me</button> -->
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock1" onclick="showStocks('<?php echo STOCK1 ?>')">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock1" onclick="showStocks('<?php echo STOCK1 ?>');showStocksOwned('<?php echo STOCK1 ?>');">
                     <h3><?php echo STOCK1 ?></h3>
                     <div class="stocks" >
                         <div style="text-align:right; <?php if((getDifference($Apple))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -266,7 +277,7 @@
                     <h2 class="h2-responsive product-name">
                            <?php echo STOCK1 ?>
                            <button class="btn btn-danger" id="stock1_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK1 ?>')">Sell</button>
-                           <button class="btn btn-primary" id="stock1_buy" style="float:right;margin-right:15px;">Buy</button>
+                           <button class="btn btn-primary" id="stock1_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK1 ?>');">Buy</button>
                     </h2>
                     <hr>
                         <div class="buy-tab">
@@ -282,17 +293,6 @@
                             </div>
                         </div>
                         <div class="sell-tab">
-                            <form id="my-form1">
-                            <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
-                            <br>
-                            <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
-                            <br>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary listit" id="stock1_list">List It!</button>
-                            </div>
-                            </form>
-                            <hr>
                             <div>
                                 <h6>Currently owned <strong><?php echo STOCK1 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
@@ -307,7 +307,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock2" onclick="showStocks('<?php echo STOCK2 ?>')">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock2" onclick="showStocks('<?php echo STOCK2 ?>');showStocksOwned('<?php echo STOCK2 ?>')">
                     <h3><?php echo STOCK2 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($Tesla))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -325,7 +325,7 @@
                         <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK2?></strong>
                             <button class="btn btn-danger" id="stock2_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK2 ?>')">Sell</button>
-                           <button class="btn btn-primary" id="stock2_buy" style="float:right;margin-right:15px;">Buy</button>
+                           <button class="btn btn-primary" id="stock2_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK2 ?>');">Buy</button>
                         </h2>
                         <hr>
                         <div class="buy-tab">
@@ -341,17 +341,6 @@
                                 </div>
                         </div>
                         <div class="sell-tab">
-                            <form id="my-form2">
-                            <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
-                            <br>
-                            <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
-                            <br>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary listit" id="stock2_list">List It!</button>
-                            </div>
-                            </form>
-                            <hr>
                             <div>
                                 <h6>Currently owned <strong><?php echo STOCK2 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
@@ -366,7 +355,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock3" onclick="showStocks('<?php echo STOCK3 ?>')">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock3" onclick="showStocks('<?php echo STOCK3 ?>');showStocksOwned('<?php echo STOCK3 ?>');">
                     <h3><?php echo STOCK3 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($Microsoft))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -384,7 +373,7 @@
                         <h2 class="h2-responsive product-name">
                                 <strong><?php echo STOCK3 ?></strong>
                                 <button class="btn btn-danger" id="stock3_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK3 ?>')">Sell</button>
-                                <button class="btn btn-primary" id="stock3_buy" style="float:right;margin-right:15px;">Buy</button>
+                                <button class="btn btn-primary" id="stock3_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK3 ?>');">Buy</button>
                             </h2>
                             <hr>
                             <div class="buy-tab">
@@ -400,17 +389,6 @@
                                 </div>
                             </div>
                             <div class="sell-tab">
-                                <form id="my-form3">
-                                <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
-                                <br>
-                                <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
-                                <br>
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary listit" id="stock3_list">List It!</button>
-                                </div>
-                                </form>
-                                <hr>
                                 <div>
                                     <h6>Currently owned <strong><?php echo STOCK3 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                     <br>
@@ -425,7 +403,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock4" onclick="showStocks('<?php echo STOCK4 ?>')">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock4" onclick="showStocks('<?php echo STOCK4 ?>');showStocksOwned('<?php echo STOCK4 ?>')">
                     <h3><?php echo STOCK4 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($Google))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -443,7 +421,7 @@
                     <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK4 ?></strong>
                             <button class="btn btn-danger" id="stock4_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK4 ?>')">Sell</button>
-                            <button class="btn btn-primary" id="stock4_buy" style="float:right;margin-right:15px;">Buy</button>
+                            <button class="btn btn-primary" id="stock4_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK4 ?>');">Buy</button>
                         </h2>
                         <hr>
                         <div class="buy-tab">
@@ -459,17 +437,6 @@
                             </div>
                         </div>
                         <div class="sell-tab">
-                            <form id="my-form4">
-                            <i class="fa fa-money" aria-hidden="true"></i><input class="form-control group" name="price" placeholder="Enter your price">
-                            <br>
-                            <i class="fa fa-comment-o" aria-hidden="true"></i><input class="form-control group" name="description" placeholder="Describe your stock (optional)">
-                            <br>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary listit" id="stock4_list">List It!</button>
-                            </div>
-                            </form>
-                            <hr>
                             <div>
                                 <h6>Currently owned <strong><?php echo STOCK4 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
