@@ -535,9 +535,9 @@
         color: red;
     }
     .stocks_box{
-        border-radius: 10px;
+        border-radius: 15px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        background: rgb(255,255,200); 
+        background: rgb(247, 249, 248); 
         width: 48%;
     }
     .stocks_box:active{
