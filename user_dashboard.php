@@ -299,6 +299,13 @@
                                 <div class="stocks-owned">
                                     
                                 </div>
+                                <hr>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" onclick="showStocksOwned('<?php echo STOCK1 ?>')">Refresh
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -346,6 +353,13 @@
                                 <br>
                                 <div class="stocks-owned">
                                     
+                                </div>
+                                <hr>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" onclick="showStocksOwned('<?php echo STOCK2 ?>')">Refresh
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -395,6 +409,13 @@
                                     <div class="stocks-owned">
                                         
                                     </div>
+                                    <hr>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary" onclick="showStocksOwned('<?php echo STOCK3 ?>')">Refresh
+                                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -442,6 +463,13 @@
                                 <br>
                                 <div class="stocks-owned">
                                     
+                                </div>
+                                <hr>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" onclick="showStocksOwned('<?php echo STOCK4 ?>')">Refresh
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
