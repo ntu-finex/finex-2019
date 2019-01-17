@@ -1,13 +1,13 @@
 <?php
     session_start();
-    include('inc/header.php');
+    include('inc/admin_header.php');
     require('secure/connect.php');
 
     if(isset($_SESSION['teamName']) != ""){ //if logged in
-        header("Location: user_dashboard.php");
+        header("Location: admin_dashboard.php");
     }
     if(isset($_POST['submit'])){
-        include('php/login_process.php');
+        include('php/admin_login_process.php');
     }
 ?>
 
@@ -19,17 +19,17 @@
                     <div class="container">
                         <!-- title -->
                         <div class="text-center">
-                            <h1>LOGIN</h1>                        
+                            <h1>STATION LOGIN</h1>                        
                         </div>
                         <hr>
-                        <!-- registration form -->
+                        <!-- login form -->
                         <br>
                         <div>
                             <form id="my-form" name="my-form" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                 <div class="form-group row">
-                                    <label for="teamName" class="col-md-4 col-form-label text-md-right">Team Name</label>
+                                    <label for="station" class="col-md-4 col-form-label text-md-right">Team Name</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="teamName" class="form-control" name="teamName" placeholder="Enter your team name" autofocus>
+                                        <input type="text" id="station" class="form-control" name="station" placeholder="Enter your station name" autofocus>
                                     </div>
                                 </div>
                                 
@@ -73,7 +73,7 @@
     $(function(){
         $("#my-form").validate({
             rules:{
-                teamName:{
+                station:{
                     required: true,
                 },
                 password:{

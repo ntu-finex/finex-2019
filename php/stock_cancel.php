@@ -1,5 +1,5 @@
 <?php
-
+//cancel the listing of the stock
 require_once('../secure/config.php');
 session_start();
 $servername = DB_HOST;

@@ -6,11 +6,17 @@
     } 
     $teamName = $_SESSION['teamName'];
     
+    
     if(isset($_POST['choice'])){
         switch($_POST['choice']){
             case 1: echo round(getCash($teamName)['cash'],2);
                     break;
             case 2:  echo round(getPoints($teamName)['game_points'],2);
+                    break;
+            case 3: $points = $_POST['points'];
+                    $team = $_POST['name'];
+                    $stationNum = $_POST['station_num'];
+                    setPoints($team,$points,$stationNum);
                     break;
         }
         
@@ -44,7 +50,30 @@
         return $cash;
     }
 
-    // function storePoint($teamName){
+    function setPoints($teamName, $points,$stationNum){
+        $servername = DB_HOST;
+        $username = DB_USERNAME;
+        $password = DB_PASSWORD;
+        $conn = new PDO("mysql:host=$servername;dbname=ntu-iic_database", $username, $password);
+        
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        switch($stationNum){
+            case "station_1": $query = $conn->prepare("UPDATE teams SET station_1=? WHERE teamName=?");
+                                break;
+            case "station_2": $query = $conn->prepare("UPDATE teams SET station_2=? WHERE teamName=?");
+                                break;
+            case "station_3": $query = $conn->prepare("UPDATE teams SET station_3=? WHERE teamName=?");
+                                break;
+            case "station_4": $query = $conn->prepare("UPDATE teams SET station_4=? WHERE teamName=?");
+                                break;
+            case "station_5": $query = $conn->prepare("UPDATE teams SET station_5=? WHERE teamName=?");
+                                break;
+            default: echo "Got Error"; break;
+        }
 
-    // }
+
+        echo($query->execute([$points, $teamName]));
+        
+    }
 ?>
