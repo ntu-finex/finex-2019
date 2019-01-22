@@ -6,6 +6,11 @@ include('secure/connect.php');
 if(isset($_SESSION['station']) == ""){
     header("Location: admin_login.php");
 }
+
+if(isset($_SESSION['station']) && $_SESSION['station'] == "GM"){
+    header("Location: gm.php");
+}
+
 $stationName = $_SESSION['station'];
 $stationNum = $_SESSION['stationNum'];
 ?>

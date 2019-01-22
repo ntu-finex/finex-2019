@@ -2,8 +2,8 @@
     session_start();
     include('inc/header.php');
     require('secure/connect.php');
-    if(isset($_SESSION['teamName']) == ""){
-        header("Location: index.php");
+    if(isset($_SESSION['station']) == ""){
+        header("Location: admin_login.php");
     }
     if(isset($_POST['submit'])){
         include('php/account_creation_process.php'); //function for processing account creation
