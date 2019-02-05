@@ -200,7 +200,7 @@
                     
                 });
                 if(counter != 0){
-                    companyStock = "<div class='btn btn-primary companyStock'>"+$stockName+"<br>"+$stockName+"<br>Price: "+"<span class='price'>"+price+"</span>"+"<br>"+"available: "+"<span class='quantity'>" +counter+"</span>"+"<br>"+ '<div class="input-group"><span class="input-group-btn"><button class="btn btn-white btn-minuse" type="button">-</button></span><input type="number" class="form-control no-padding add-color text-center height-25" maxlength="3" value="0"><span class="input-group-btn"><button class="btn btn-red btn-pluss" type="button">+</button></span></div>'+"<button class='btn btn-success btn-purchase' onclick='purchaseCompanyStock(\"" + $stockName + "\")'>Purchase</button>"+"</div><br>" 
+                    companyStock = "<div class='btn btn-primary companyStock'>"+$stockName+"<br>"+$stockName+"<br>Price: "+"<span class='price'>"+price+"</span >"+"<br>"+"available: "+"<span class='quantity'>" +counter+"</span>"+"<br>"+ '<div class="input-group"><span class="input-group-btn"><button class="btn btn-white btn-minuse" type="button">-</button></span><input type="number" class="form-control no-padding add-color text-center height-25" maxlength="3" value="0"><span class="input-group-btn"><button class="btn btn-red btn-pluss" type="button">+</button></span></div>'+"<button class='btn btn-success btn-purchase' onclick='purchaseCompanyStock(\"" + $stockName + "\")'>Purchase</button>"+"</div><br>" 
                                 
                 }
                 $(".STOCK1S").append(companyStock).hide().fadeIn(700);
