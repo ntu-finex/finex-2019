@@ -39,195 +39,12 @@
         return round($percentage,2);
     }
 ?>
-<script>
-    $( document ).ready(getCash(), getPoints());
-    $(document).ready(function(){
-        $('.sell-tab').hide();
-        $('#stock1_sell,#stock2_sell,#stock3_sell,#stock4_sell').click(function(){
-            $('.buy-tab').hide();
-            $('.sell-tab').show();
-        });
-        $('#stock1_buy,#stock2_buy,#stock3_buy,#stock4_buy').click(function(){
-            $('.buy-tab').show();
-            $('.sell-tab').hide();
-        });
 
-    });
-    function cancelStock($id){
-        if(!confirm("Are you sure you want to cancel your listing?")){
-            return false;
-        }
-
-        $.ajax({
-            url: 'php/stock_cancel.php',
-            method: 'post',
-            data:{
-                id: $id,
-            },
-            success:function(response){
-                if(response == 'You don\'t have any stock for cancellation.'){
-                    alert(response);
-                }else{
-                    showStocksOwned(response);
-                }
-            }
-        })
-    }
-
-    function sellStock($id){
-        var priceStock = prompt("Please enter your listing price");
-        if (priceStock == null) {
-            return false;
-        }else if(priceStock <= 0){
-            alert("The price is invalid");
-            return false;
-        }
-
-        $.ajax({
-            url: 'php/stock_sell.php',
-            type: 'post',
-            data:{
-                id: $id,
-                price: priceStock,
-            },
-            success:function(response){
-                if(response == 'You don\'t have any stock for sale.'){
-                    alert(response);
-                }else{
-                    alert("The stock "+response+" has been listed for sale.");
-                    showStocksOwned(response);
-                }
-            }
-        })
-    }
-
-    function purchaseStock($id){
-        if(!confirm("Are you sure you want to purchase this stock?")){
-            return false;
-        }
-        $.ajax({
-            url:'php/stock_purchase.php',
-            type: 'post',
-            data:{
-                id: $id,
-            },
-            success:function(result){
-                if(result === 'Stock is unavailable for purchase.' || result === "You don't have enough cash to purchase the stocks."){
-                    alert(result);
-                }else{
-                    getCash();
-                    alert("You have successfully purchase the stock!");
-                    showStocks(result);
-                }
-            }
-        });
-    }
-
-
-    function getCash(){
-        $.ajax({
-            url: 'php/stats.php',
-            type: 'post',
-            data:{
-                choice: 1,
-            },
-            success:function(result){
-                //console.log(result);
-                $('#cash-result').html(result)
-            }
-        })
-    }
-
-    function getPoints(){
-        $.ajax({
-            url: 'php/stats.php',
-            type: 'post',
-            data:{
-                choice: 2,
-            },
-            success:function(result){
-                $('#points-result').html(result)
-            }
-        })
-    }
-
-    function showStocks($stockName){
-        $.ajax({
-            url: 'php/stock_show.php',
-            type: 'GET',
-            data:{
-                name: $stockName,
-            },
-            dataType: 'json',
-            success:function(result){
-                jQuery('.STOCK1S').empty();
-                var counter = 0;
-                $.each(result, function(key, value) { //for each value in list will be in value
-                    counter++;
-                    var name = value['name'];
-                    var owner = value['owner'];
-                    var id = value['id'];
-                    $(".STOCK1S").append(
-                        '<button class="btn col-xs-3 stocks_box alert vibrate-1" onclick="purchaseStock(\'' + id + '\')">' + '<strong>' +
-                        value['name'] +'</strong>' + '<br>' + value['price'] + '<br>' + 
-                        value['owner'] + '<br>' +'</button>' + '<hr>'
-                        
-                    ).hide().fadeIn(700); //Value as a specific item from list. 
-                });
-            }
-        })
-    }
-
-    function showStocksOwned($stockName){
-        $.ajax({
-            url: 'php/stock_owned.php',
-            type: 'GET',
-            data:{
-                name: $stockName,
-            },
-            dataType: 'json',
-            success:function(result){
-                jQuery('.stocks-owned').empty();
-                $('.ownedQty').empty();
-                var length = 0;
-                length = result.length;
-                $('.ownedQty').html(length);
-                $.each(result, function(key, value) { //for each value in list will be in value
-                    var name = value['name'];
-                    var owner = value['owner'];
-                    var id = value['id'];
-                    var available = value['available'];
-
-                    if(available == 1){
-                        status = "Listed";
-                    }else{
-                        status = "Not listed";
-                    }
-                    const color = available == 0 ? "'btn col-xs-3 stocks_box alert' style='background:green;color:white;'":
-                    "'btn col-xs-3 stocks_box alert' style='background:red;color:white;'";
-                    
-                    var sell = '<button onclick="sellStock(\'' + id + '\')" class=' + color + '>' + value['name'] + '      ' + '<br>' + value['price'] + '<br>' + status + '<br>'+
-                        '</button>';
-
-                    var cancel = '<button onclick="cancelStock(\'' + id + '\')" class=' + color + '>' + value['name'] + '      ' + '<br>' + value['price'] + '<br>' + status + '<br>'+
-                        '</button>';
-
-                    if(available == 0){
-                        var div = sell;
-                    }else{
-                        var div = cancel;
-                    }
-
-                    $(".stocks-owned").append(div).hide().fadeIn(700); //Value as a specific item from list. 
-                });
-                
-            }
-        })
-    }
-</script>
 <head>
     <title>User Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.min.css">
+    <script src="js/functions.js"></script>
 </head>
 
 <body>
@@ -236,7 +53,7 @@
         <h1 class="text-center">Hello, <?php echo $_SESSION['teamName']?></h1>
         <hr>
         <div class="row">
-            <div class="col-md-6" >
+            <div class="col-md" >
                 <div id="cash_box">
                     <h5>💸Cash💸</h5>
                     <div class="cash">
@@ -244,14 +61,14 @@
                     </div>        
                 </div>
             </div>
-            <div class="col-md-6">
-                <div id="gp_box">
+            <!-- <div class="col-md-6"> -->
+                <!-- <div id="gp_box">
                     <h5>Game Points</h5>
                     <div class="points">
                         <h3 id="points-result"></h3>
                     </div>       
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
         </div>
         <!-- Stocks' Market Price Area -->
         <div class="row" style="display:flex;">
@@ -606,6 +423,12 @@
   }
 }
 
+.companyStock{
+    border-radius: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background: rgb(247, 249, 248); 
+    width: 100%
+}
 
 </style>
 
