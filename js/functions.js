@@ -171,6 +171,10 @@
 
       var seller = $(this).find('.seller').text();
 
+      if(!confirm("Are you sure you want to purchase this stock?")){
+          return false;
+      }
+      
       $.ajax({
         url: 'php/purchaseMultipleStocks.php',
         type: 'post',

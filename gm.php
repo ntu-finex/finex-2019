@@ -20,8 +20,8 @@ require('classes/stock.php');
   $stocks = new Stock;
   $Apple = $stocks->getCompanyStock(STOCK1);
   $Tesla = $stocks->getCompanyStock(STOCK2);
-  $Google = $stocks->getCompanyStock(STOCK4);
   $Microsoft = $stocks->getCompanyStock(STOCK3);
+  $Google = $stocks->getCompanyStock(STOCK4);
 
   function getDifference($stock){
       return ($stock['current_price'] - $stock['previous_price']);
@@ -91,20 +91,8 @@ require('classes/stock.php');
               </div>
           </div>
           <hr>
-          <div id="stocks_box"  data-toggle="modal" data-target="#stock1">
-              <h3><?php echo STOCK3 ?></h3>
-              <div class="stocks" >
-                  <div style="text-align:right; <?php if((getDifference($Google))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                      <h1>$<?php echo $Google['current_price']?></h1>
-                      <h6>
-                      <?php if((getDifference($Google))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
-                      <?php echo getDifference($Google) ?>  (<?php echo getPercentage($Google)?>%)</h6>
-                  </div>
-              </div>
-          </div>
-          <hr>
           <div id="stocks_box" data-toggle="modal" data-target="#stock1">
-              <h3><?php echo STOCK4 ?></h3>
+              <h3><?php echo STOCK3 ?></h3>
               <div class="stocks" >
                   <div style="text-align:right; <?php if((getDifference($Microsoft))>0) echo 'color:green'; else echo 'color:red'; ?>">
                       <h1>$<?php echo $Microsoft['current_price']?></h1>
@@ -114,6 +102,18 @@ require('classes/stock.php');
                   </div>
               </div>
           </div>
+          <hr>
+          <div id="stocks_box"  data-toggle="modal" data-target="#stock1">
+              <h3><?php echo STOCK4 ?></h3>
+              <div class="stocks" >
+                  <div style="text-align:right; <?php if((getDifference($Google))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                      <h1>$<?php echo $Google['current_price']?></h1>
+                      <h6>
+                      <?php if((getDifference($Google))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
+                      <?php echo getDifference($Google) ?>  (<?php echo getPercentage($Google)?>%)</h6>
+                  </div>
+              </div>
+          </div>
           <br>
           <br>
           <br>
@@ -121,7 +121,7 @@ require('classes/stock.php');
           <br>
           <br>
           <br>
-          
+
         </section>
     </div>
 </body>
