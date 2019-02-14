@@ -14,5 +14,6 @@
     $query->execute([$stockName,$buyer]);
     $stocks = $query->fetchAll();
 
-    echo json_encode($stocks);
+    
+      echo json_encode($stocks);
 ?>

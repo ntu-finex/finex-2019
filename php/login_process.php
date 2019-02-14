@@ -6,9 +6,9 @@
         try{
             $teamName = test_input($_POST["teamName"]);
             $password = test_input($_POST["password"]);
-            
+
             $stmt = $conn->prepare("SELECT * FROM teams WHERE teamName=? AND password=?");
-            $stmt->execute([$teamName,$password]); 
+            $stmt->execute([$teamName,$password]);
             $team = $stmt->fetch();
 
             if($team){

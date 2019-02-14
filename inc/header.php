@@ -35,8 +35,7 @@
                     echo '<li class="nav-item"><a class="nav-link" href="php/logout_process.php">Logout</a></li>';
                 }
             ?>
-            <!-- <li class="nav-item dropdown"> -->
-            <!-- <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">Dropdown</a> -->
+            
         </ul>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#"> Menu item 1</a></li>
@@ -47,7 +46,7 @@
 </body>
 
 <style>
-    nav{
+    /* nav{
         box-shadow: 0 1px 10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    }
+    } */
 </style>

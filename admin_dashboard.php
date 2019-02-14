@@ -1,23 +1,23 @@
 <?php
 
-session_start();
-include('inc/admin_header.php');
-include('secure/connect.php');
-if(isset($_SESSION['station']) == ""){
-    header("Location: admin_login.php");
-}
+  session_start();
+  include('inc/admin_header.php');
+  include('secure/connect.php');
+  if(isset($_SESSION['station']) == ""){
+      header("Location: admin_login.php");
+  }
 
-if(isset($_SESSION['station']) && $_SESSION['station'] == "GM"){
-    header("Location: gm.php");
-}
+  if(isset($_SESSION['station']) && $_SESSION['station'] == "GM"){
+      header("Location: gm.php");
+  }
 
-$stationName = $_SESSION['station'];
-$stationNum = $_SESSION['stationNum'];
+  $stationName = $_SESSION['station'];
+  $stationNum = $_SESSION['stationNum'];
 ?>
 <script>
     $(document).ready(function(){
 
-        //set the point function 
+        //set the point function
         $('.btn-team').click(function(){
             var team = $(this).html();
             var station = $('.stationNum').html();
@@ -32,7 +32,7 @@ $stationNum = $_SESSION['stationNum'];
             })
         });
     });
-       
+
     //ajax call
     function setMark(team,station){
         var mark = prompt("Enter the points for the team you've selected: " + team);
@@ -49,7 +49,7 @@ $stationNum = $_SESSION['stationNum'];
             method: 'post',
             data:{
                 name: team,
-                points: mark, 
+                points: mark,
                 station_num: station,
                 choice: 3,
             },
@@ -62,7 +62,7 @@ $stationNum = $_SESSION['stationNum'];
             }
         })
     }
-   
+
 </script>
 
 <head>
@@ -85,7 +85,7 @@ $stationNum = $_SESSION['stationNum'];
             }
         ?>
     </div>
-    
+
 
 </body>
 
@@ -97,4 +97,3 @@ $stationNum = $_SESSION['stationNum'];
         font-size: 20px;
     }
 </style>
-

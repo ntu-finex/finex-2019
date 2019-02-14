@@ -21,7 +21,6 @@
                         <div class="text-center">
                             <h1>LOGIN</h1>                        
                         </div>
-                        <hr>
                         <!-- registration form -->
                         <br>
                         <div>

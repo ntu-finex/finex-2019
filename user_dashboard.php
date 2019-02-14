@@ -1,12 +1,12 @@
 <?php
     session_start();
-    
+
     include('inc/header.php');
     //require('secure/connect.php');
     if(isset($_SESSION['teamName']) == ""){
         header("Location: index.php");
     }
-    
+
     require('classes/stock.php');
 
     define("STOCK1", 'Apple Inc');
@@ -18,7 +18,7 @@
     $teamName = $_SESSION['teamName'];
     $game_point = 0;
     $cash = 0;
-    
+
 
     //stock.php functions
     $stocks = new Stock;
@@ -31,8 +31,8 @@
     //get the difference between current price and previous price
     function getDifference($stock){
         return ($stock['current_price'] - $stock['previous_price']);
-    }   
-    
+    }
+
     function getPercentage($stock){
         $difference = getDifference($stock);
         $percentage = $difference/($stock['previous_price']) * 100;
@@ -43,38 +43,28 @@
 <head>
     <title>User Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.min.css">
-    <script src="js/functions.js"></script>
+    <script src="js/functions.js?newversion"></script>
 </head>
 
 <body>
-    <div class="container">
+    <div class="wrapper container">
         <br>
-        <h1 class="text-center">Hello, <?php echo $_SESSION['teamName']?></h1>
-        <hr>
+        <h3><strong><?php echo $_SESSION['teamName']?></strong></h3>
         <div class="row">
             <div class="col-md" >
                 <div id="cash_box">
                     <h5>💸Cash💸</h5>
                     <div class="cash">
                         <h4>$</h4><h3 id="cash-result"></h3>
-                    </div>        
+                    </div>
                 </div>
             </div>
-            <!-- <div class="col-md-6"> -->
-                <!-- <div id="gp_box">
-                    <h5>Game Points</h5>
-                    <div class="points">
-                        <h3 id="points-result"></h3>
-                    </div>       
-                </div> -->
-            <!-- </div> -->
         </div>
         <!-- Stocks' Market Price Area -->
         <div class="row" style="display:flex;">
             <div class="col-md-3">
                 <!-- <button type="button" class="btn btn-primary" onclick="purchaseStock()">click me</button> -->
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock1" onclick="showStocks('<?php echo STOCK1 ?>');showStocksOwned('<?php echo STOCK1 ?>');">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock1" onclick="showStocks('<?php echo STOCK1 ?>');showMultipleStocks('<?php echo STOCK1 ?>');">
                     <h3><?php echo STOCK1 ?></h3>
                     <div class="stocks" >
                         <div style="text-align:right; <?php if((getDifference($Apple))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -93,12 +83,14 @@
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
                            <?php echo STOCK1 ?>
-                           <button class="btn btn-danger" id="stock1_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK1 ?>')">Sell</button>
+                           <button class="btn btn-danger" id="stock1_sell" style="float:right;" onclick="showMultipleStocks('<?php echo STOCK1 ?>')">Sell</button>
                            <button class="btn btn-primary" id="stock1_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK1 ?>');">Buy</button>
                     </h2>
                     <hr>
                         <div class="buy-tab">
                             <div class="container">
+                                <div class="STOCK2S" style="text-align: center;margin:0 auto;"></div>
+                                <br>
                                 <div class="STOCK1S row" style="text-align: center;margin:0 auto;"><!-- stock display area --></div>
                             </div>
                             <hr>
@@ -114,12 +106,13 @@
                                 <h6>Currently owned <strong><?php echo STOCK1 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
                                 <div class="stocks-owned">
-                                    
+
                                 </div>
+                                <!-- <div class='btn btn-primary companyStock'><br><span class='price'></span ><br>available<span class='quantity'></span><br><div class="input-group"><span class="input-group-btn"><button class="btn btn-white btn-minuse" type="button">-</button></span><input type="number" class="form-control no-padding add-color text-center height-25" maxlength="3" value="0"><span class="input-group-btn"><button class="btn btn-red btn-pluss" type="button"></button></span></div><button class='btn btn-success btn-purchase' onclick='purchaseCompanyStock($stockName)'>Purchase</button></div><br> -->
                                 <hr>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary" onclick="showStocksOwned('<?php echo STOCK1 ?>')">Refresh
+                                    <button class="btn btn-primary" onclick="showMultipleStocks('<?php echo STOCK1 ?>')">Refresh
                                         <i class="fa fa-refresh" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -131,7 +124,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock2" onclick="showStocks('<?php echo STOCK2 ?>');showStocksOwned('<?php echo STOCK2 ?>')">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock2" onclick="showStocks('<?php echo STOCK2 ?>');showMultipleStocks('<?php echo STOCK2 ?>')">
                     <h3><?php echo STOCK2 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($Tesla))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -148,12 +141,14 @@
                         <div class="modal-body">
                         <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK2?></strong>
-                            <button class="btn btn-danger" id="stock2_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK2 ?>')">Sell</button>
+                            <button class="btn btn-danger" id="stock2_sell" style="float:right;" onclick="showMultipleStocks('<?php echo STOCK2 ?>')">Sell</button>
                            <button class="btn btn-primary" id="stock2_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK2 ?>');">Buy</button>
                         </h2>
                         <hr>
                         <div class="buy-tab">
                             <div class="container">
+                                <div class="STOCK2S" style="text-align: center;margin:0 auto;"></div>
+                                <br>
                                 <div class="STOCK1S row" style="text-align: center;margin:0 auto;"><!-- stock display area --></div>
                             </div>
                             <hr>
@@ -169,12 +164,12 @@
                                 <h6>Currently owned <strong><?php echo STOCK2 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
                                 <div class="stocks-owned">
-                                    
+
                                 </div>
                                 <hr>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary" onclick="showStocksOwned('<?php echo STOCK2 ?>')">Refresh
+                                    <button class="btn btn-primary" onclick="showMultipleStocks('<?php echo STOCK2 ?>')">Refresh
                                         <i class="fa fa-refresh" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -186,7 +181,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock3" onclick="showStocks('<?php echo STOCK3 ?>');showStocksOwned('<?php echo STOCK3 ?>');">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock3" onclick="showStocks('<?php echo STOCK3 ?>');showMultipleStocks('<?php echo STOCK3 ?>');">
                     <h3><?php echo STOCK3 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($Microsoft))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -203,12 +198,14 @@
                         <div class="modal-body">
                         <h2 class="h2-responsive product-name">
                                 <strong><?php echo STOCK3 ?></strong>
-                                <button class="btn btn-danger" id="stock3_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK3 ?>')">Sell</button>
+                                <button class="btn btn-danger" id="stock3_sell" style="float:right;" onclick="showMultipleStocks('<?php echo STOCK3 ?>')">Sell</button>
                                 <button class="btn btn-primary" id="stock3_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK3 ?>');">Buy</button>
                             </h2>
                             <hr>
                             <div class="buy-tab">
                                 <div class="container">
+                                    <div class="STOCK2S" style="text-align: center;margin:0 auto;"></div>
+                                    <br>
                                     <div class="STOCK1S row" style="text-align: center;margin:0 auto;"><!-- stock display area --></div>
                                 </div>
                                 <hr>
@@ -224,12 +221,12 @@
                                     <h6>Currently owned <strong><?php echo STOCK3 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                     <br>
                                     <div class="stocks-owned">
-                                        
+
                                     </div>
                                     <hr>
                                     <div class="text-center">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button class="btn btn-primary" onclick="showStocksOwned('<?php echo STOCK3 ?>')">Refresh
+                                        <button class="btn btn-primary" onclick="showMultipleStocks('<?php echo STOCK3 ?>')">Refresh
                                             <i class="fa fa-refresh" aria-hidden="true"></i>
                                         </button>
                                     </div>
@@ -241,7 +238,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock4" onclick="showStocks('<?php echo STOCK4 ?>');showStocksOwned('<?php echo STOCK4 ?>')">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock4" onclick="showStocks('<?php echo STOCK4 ?>');showMultipleStocks('<?php echo STOCK4 ?>')">
                     <h3><?php echo STOCK4 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($Google))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -258,12 +255,14 @@
                     <div class="modal-body">
                     <h2 class="h2-responsive product-name">
                             <strong><?php echo STOCK4 ?></strong>
-                            <button class="btn btn-danger" id="stock4_sell" style="float:right;" onclick="showStocksOwned('<?php echo STOCK4 ?>')">Sell</button>
+                            <button class="btn btn-danger" id="stock4_sell" style="float:right;" onclick="showMultipleStocks('<?php echo STOCK4 ?>')">Sell</button>
                             <button class="btn btn-primary" id="stock4_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK4 ?>');">Buy</button>
                         </h2>
                         <hr>
                         <div class="buy-tab">
                             <div class="container">
+                                <div class="STOCK2S" style="text-align: center;margin:0 auto;"></div>
+                                <br>
                                 <div class="STOCK1S row" style="text-align: center;margin:0 auto;"><!-- stock display area --></div>
                             </div>
                             <hr>
@@ -279,12 +278,12 @@
                                 <h6>Currently owned <strong><?php echo STOCK4 ?></strong> stock: <span class="ownedQty"></span> </h6>
                                 <br>
                                 <div class="stocks-owned">
-                                    
+
                                 </div>
                                 <hr>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary" onclick="showStocksOwned('<?php echo STOCK4 ?>')">Refresh
+                                    <button class="btn btn-primary" onclick="showMultipleStocks('<?php echo STOCK4 ?>')">Refresh
                                         <i class="fa fa-refresh" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -348,92 +347,25 @@
     }
     .stocks_box{
         border-radius: 15px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        background: rgb(247, 249, 248); 
+        /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
+        background: rgb(247, 249, 248);
         width: 48%;
     }
     .stocks_box:active{
         top: 3px;
         box-shadow: 0 2px 0 #0b5ea3;
     }
-    .vibrate-1 {
-	-webkit-animation: vibrate-1 0.3s 1s linear 3 both;
-	        animation: vibrate-1 0.3s 1s linear 3 both;
-    }
-  /* ----------------------------------------------
- * Generated by Animista on 2019-1-14 22:31:48
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
 
-/**
- * ----------------------------------------
- * animation vibrate-1
- * ----------------------------------------
- */
-@-webkit-keyframes vibrate-1 {
-  0% {
-    -webkit-transform: translate(0);
-            transform: translate(0);
+  .companyStock,.multipleStock{
+      border-radius: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      background: rgb(247, 249, 248);
+      width: 100%
   }
-  20% {
-    -webkit-transform: translate(-2px, 2px);
-            transform: translate(-2px, 2px);
-  }
-  40% {
-    -webkit-transform: translate(-2px, -2px);
-            transform: translate(-2px, -2px);
-  }
-  60% {
-    -webkit-transform: translate(2px, 2px);
-            transform: translate(2px, 2px);
-  }
-  80% {
-    -webkit-transform: translate(2px, -2px);
-            transform: translate(2px, -2px);
-  }
-  100% {
-    -webkit-transform: translate(0);
-            transform: translate(0);
-  }
-}
-@keyframes vibrate-1 {
-  0% {
-    -webkit-transform: translate(0);
-            transform: translate(0);
-  }
-  20% {
-    -webkit-transform: translate(-2px, 2px);
-            transform: translate(-2px, 2px);
-  }
-  40% {
-    -webkit-transform: translate(-2px, -2px);
-            transform: translate(-2px, -2px);
-  }
-  60% {
-    -webkit-transform: translate(2px, 2px);
-            transform: translate(2px, 2px);
-  }
-  80% {
-    -webkit-transform: translate(2px, -2px);
-            transform: translate(2px, -2px);
-  }
-  100% {
-    -webkit-transform: translate(0);
-            transform: translate(0);
-  }
-}
 
-.companyStock{
-    border-radius: 15px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    background: rgb(247, 249, 248); 
-    width: 100%
-}
+  /*This disables the double tap to zoom on mobile devices*/
+  button {
+      touch-action: manipulation;
+  }
 
 </style>
-
-<script>
-    jQuery.validator.addMethod("greaterThanZero", function(value) {
-        return (parseFloat(value) >= 0);
-    }); // Amount must be greater than zero");
-</script>
