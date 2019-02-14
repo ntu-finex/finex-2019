@@ -109,6 +109,7 @@
 
         if(qty <= 0){
           alert("The quantity entered is invalid!");
+          return false;
         }
 
         var priceStock = prompt("Please enter your listing price for the stocks");
@@ -174,7 +175,7 @@
       if(!confirm("Are you sure you want to purchase this stock?")){
           return false;
       }
-      
+
       $.ajax({
         url: 'php/purchaseMultipleStocks.php',
         type: 'post',
