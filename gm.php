@@ -5,10 +5,10 @@ include('inc/admin_header.php');
 include('secure/connect.php');
 require('classes/stock.php');
 
-  define("STOCK1", 'Apple Inc');
-  define("STOCK2", 'Tesla Inc');
-  define("STOCK3", 'Microsoft Inc');
-  define("STOCK4", 'Google Inc');
+  define("STOCK1", 'TEZLA INC');
+  define("STOCK2", 'OSBS Bank');
+  define("STOCK3", 'FINEX CO');
+  define("STOCK4", 'NCF INC');
 
   if(isset($_SESSION['station']) == ""){
       header("Location: admin_login.php");
@@ -18,10 +18,10 @@ require('classes/stock.php');
   $stationNum = $_SESSION['stationNum'];
 
   $stocks = new Stock;
-  $Apple = $stocks->getCompanyStock(STOCK1);
-  $Tesla = $stocks->getCompanyStock(STOCK2);
-  $Microsoft = $stocks->getCompanyStock(STOCK3);
-  $Google = $stocks->getCompanyStock(STOCK4);
+  $Tezla = $stocks->getCompanyStock(STOCK1);
+  $OSBSa = $stocks->getCompanyStock(STOCK2);
+  $Finex = $stocks->getCompanyStock(STOCK3);
+  $NCF = $stocks->getCompanyStock(STOCK4);
 
   function getDifference($stock){
       return ($stock['current_price'] - $stock['previous_price']);
@@ -70,11 +70,11 @@ require('classes/stock.php');
           <div id="stocks_box" data-toggle="modal" data-target="#stock1">
               <h3><?php echo STOCK1 ?></h3>
               <div class="stocks" >
-                  <div style="text-align:right; <?php if((getDifference($Apple))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                      <h1>$<?php echo $Apple['current_price']?></h1>
+                  <div style="text-align:right; <?php if((getDifference($Tezla))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                      <h1>$<?php echo $Tezla['current_price']?></h1>
                       <h6>
-                      <?php if((getDifference($Apple))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
-                      <?php echo getDifference($Apple) ?>  (<?php echo getPercentage($Apple)?>%)</h6>
+                      <?php if((getDifference($Tezla))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
+                      <?php echo getDifference($Tezla) ?>  (<?php echo getPercentage($Tezla)?>%)</h6>
                   </div>
               </div>
           </div>
@@ -82,11 +82,11 @@ require('classes/stock.php');
           <div id="stocks_box" data-toggle="modal" data-target="#stock1">
               <h3><?php echo STOCK2 ?></h3>
               <div class="stocks" >
-                  <div style="text-align:right; <?php if((getDifference($Tesla))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                      <h1>$<?php echo $Tesla['current_price']?></h1>
+                  <div style="text-align:right; <?php if((getDifference($OSBSa))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                      <h1>$<?php echo $OSBSa['current_price']?></h1>
                       <h6>
-                      <?php if((getDifference($Tesla))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
-                      <?php echo getDifference($Tesla) ?>  (<?php echo getPercentage($Tesla)?>%)</h6>
+                      <?php if((getDifference($OSBSa))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
+                      <?php echo getDifference($OSBSa) ?>  (<?php echo getPercentage($OSBSa)?>%)</h6>
                   </div>
               </div>
           </div>
@@ -94,11 +94,11 @@ require('classes/stock.php');
           <div id="stocks_box" data-toggle="modal" data-target="#stock1">
               <h3><?php echo STOCK3 ?></h3>
               <div class="stocks" >
-                  <div style="text-align:right; <?php if((getDifference($Microsoft))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                      <h1>$<?php echo $Microsoft['current_price']?></h1>
+                  <div style="text-align:right; <?php if((getDifference($Finex))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                      <h1>$<?php echo $Finex['current_price']?></h1>
                       <h6>
-                      <?php if((getDifference($Microsoft))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
-                      <?php echo getDifference($Microsoft) ?>  (<?php echo getPercentage($Microsoft)?>%)</h6>
+                      <?php if((getDifference($Finex))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
+                      <?php echo getDifference($Finex) ?>  (<?php echo getPercentage($Finex)?>%)</h6>
                   </div>
               </div>
           </div>
@@ -106,22 +106,52 @@ require('classes/stock.php');
           <div id="stocks_box"  data-toggle="modal" data-target="#stock1">
               <h3><?php echo STOCK4 ?></h3>
               <div class="stocks" >
-                  <div style="text-align:right; <?php if((getDifference($Google))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                      <h1>$<?php echo $Google['current_price']?></h1>
+                  <div style="text-align:right; <?php if((getDifference($NCF))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                      <h1>$<?php echo $NCF['current_price']?></h1>
                       <h6>
-                      <?php if((getDifference($Google))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
-                      <?php echo getDifference($Google) ?>  (<?php echo getPercentage($Google)?>%)</h6>
+                      <?php if((getDifference($NCF))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
+                      <?php echo getDifference($NCF) ?>  (<?php echo getPercentage($NCF)?>%)</h6>
                   </div>
               </div>
+          </div>
+          <hr>
+          <div id='endGameDiv'>
+            <button class="btn btn-danger btn-block" type="button" name="button" id="endGame">END THE GAME</button>
           </div>
           <br>
           <br>
           <br>
           <br>
           <br>
-          <br>
-          <br>
-
         </section>
     </div>
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('#endGame').click(endGame);
+    });
+
+    function endGame(){
+      if(!(confirm("Are you sure you want to end the game?"))){
+        alert("Action is cancelled.");
+        return false;
+      }
+
+      $.ajax({
+        url: 'php/endGame.php',
+        method: 'post',
+        success: function(response){
+          alert(response);
+        }
+      });
+    }
+</script>
+
+<style media="screen">
+  #endGame{
+    background: red;
+    color: white;
+  }
+
+</style>

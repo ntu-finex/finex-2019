@@ -9,10 +9,10 @@
 
     require('classes/stock.php');
 
-    define("STOCK1", 'Apple Inc');
-    define("STOCK2", 'Tesla Inc');
-    define("STOCK3", 'Microsoft Inc');
-    define("STOCK4", 'Google Inc');
+    define("STOCK1", 'TEZLA INC');
+    define("STOCK2", 'OSBS Bank');
+    define("STOCK3", 'FINEX CO');
+    define("STOCK4", 'NCF INC');
 
     //stats.php functions
     $teamName = $_SESSION['teamName'];
@@ -24,10 +24,10 @@
     $stocks = new Stock;
     $ownedStocks = $stocks->getStockByOwner($teamName);
 
-    $Apple = $stocks->getCompanyStock(STOCK1);
-    $Tesla = $stocks->getCompanyStock(STOCK2);
-    $Google = $stocks->getCompanyStock(STOCK4);
-    $Microsoft = $stocks->getCompanyStock(STOCK3);
+    $Tezla = $stocks->getCompanyStock(STOCK1);
+    $OSBS = $stocks->getCompanyStock(STOCK2);
+    $NCF = $stocks->getCompanyStock(STOCK4);
+    $Finex = $stocks->getCompanyStock(STOCK3);
     //get the difference between current price and previous price
     function getDifference($stock){
         return ($stock['current_price'] - $stock['previous_price']);
@@ -42,6 +42,7 @@
 
 <head>
     <title>User Dashboard</title>
+    <meta http-equiv="refresh" content="240">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <script src="js/functions.js?newversion"></script>
 </head>
@@ -50,16 +51,37 @@
     <div class="wrapper container">
         <br>
         <h3><strong><?php echo $_SESSION['teamName']?></strong></h3>
+        <hr>
+        <h3 style="text-align:center;"><strong>Latest News</strong></h3>
+        <article class="scenario">
+          <?php
+          require_once('secure/config.php');
+          $servername = DB_HOST;
+          $username = DB_USERNAME;
+          $password = DB_PASSWORD;
+          $conn = new PDO("mysql:host=$servername;dbname=ntu-iic_database", $username, $password);
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = $conn->prepare("SELECT * FROM utility WHERE name='current_sce'");
+            $sql->execute();
+            $current_sce = $sql->fetch()['number'];
+            $stmt = $conn->prepare("SELECT * FROM scenario WHERE id=?");
+            $stmt->execute([$current_sce]);
+            $scenario = $stmt->fetch();
+            echo $scenario['description'];
+          ?>
+
+        </article>
         <div class="row">
             <div class="col-md" >
                 <div id="cash_box">
-                    <h5>💸Cash💸</h5>
+                    <h5>💸<strong>Cash</strong>💸</h5>
                     <div class="cash">
                         <h4>$</h4><h3 id="cash-result"></h3>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Stocks' Market Price Area -->
         <div class="row" style="display:flex;">
             <div class="col-md-3">
@@ -67,11 +89,11 @@
                 <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock1" onclick="showStocks('<?php echo STOCK1 ?>');showMultipleStocks('<?php echo STOCK1 ?>');">
                     <h3><?php echo STOCK1 ?></h3>
                     <div class="stocks" >
-                        <div style="text-align:right; <?php if((getDifference($Apple))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                            <h1>$<?php echo $Apple['current_price']?></h1>
+                        <div style="text-align:right; <?php if((getDifference($Tezla))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                            <h1>$<?php echo $Tezla['current_price']?></h1>
                             <h6>
-                            <?php if((getDifference($Apple))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
-                            <?php echo getDifference($Apple) ?>  (<?php echo getPercentage($Apple)?>%)</h6>
+                            <?php if((getDifference($Tezla))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?>$
+                            <?php echo getDifference($Tezla) ?>  (<?php echo getPercentage($Tezla)?>%)</h6>
                         </div>
                     </div>
                 </button>
@@ -81,11 +103,11 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-body">
-                    <h2 class="h2-responsive product-name">
+                    <h3 class="h2-responsive product-name">
                            <?php echo STOCK1 ?>
                            <button class="btn btn-danger" id="stock1_sell" style="float:right;" onclick="showMultipleStocks('<?php echo STOCK1 ?>')">Sell</button>
                            <button class="btn btn-primary" id="stock1_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK1 ?>');">Buy</button>
-                    </h2>
+                    </h3>
                     <hr>
                         <div class="buy-tab">
                             <div class="container">
@@ -127,9 +149,9 @@
                 <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock2" onclick="showStocks('<?php echo STOCK2 ?>');showMultipleStocks('<?php echo STOCK2 ?>')">
                     <h3><?php echo STOCK2 ?></h3>
                     <div class="stocks">
-                        <div style="text-align:right; <?php if((getDifference($Tesla))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                            <h1>$<?php echo $Tesla['current_price']?></h1>
-                            <h6><?php if((getDifference($Tesla))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?> $<?php echo getDifference($Tesla) ?>  (<?php echo getPercentage($Tesla)?>%)</h6>
+                        <div style="text-align:right; <?php if((getDifference($OSBS))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                            <h1>$<?php echo $OSBS['current_price']?></h1>
+                            <h6><?php if((getDifference($OSBS))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?> $<?php echo getDifference($OSBS) ?>  (<?php echo getPercentage($OSBS)?>%)</h6>
                         </div>
                     </div>
                 </button>
@@ -139,11 +161,11 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
-                        <h2 class="h2-responsive product-name">
+                        <h3 class="h2-responsive product-name">
                             <strong><?php echo STOCK2?></strong>
                             <button class="btn btn-danger" id="stock2_sell" style="float:right;" onclick="showMultipleStocks('<?php echo STOCK2 ?>')">Sell</button>
                            <button class="btn btn-primary" id="stock2_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK2 ?>');">Buy</button>
-                        </h2>
+                        </h3>
                         <hr>
                         <div class="buy-tab">
                             <div class="container">
@@ -184,9 +206,9 @@
                 <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock3" onclick="showStocks('<?php echo STOCK3 ?>');showMultipleStocks('<?php echo STOCK3 ?>');">
                     <h3><?php echo STOCK3 ?></h3>
                     <div class="stocks">
-                        <div style="text-align:right; <?php if((getDifference($Microsoft))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                            <h1>$<?php echo $Microsoft['current_price']?></h1>
-                            <h6><?php if((getDifference($Microsoft))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?> $<?php echo getDifference($Microsoft) ?>  (<?php echo getPercentage($Microsoft)?>%)</h6>
+                        <div style="text-align:right; <?php if((getDifference($Finex))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                            <h1>$<?php echo $Finex['current_price']?></h1>
+                            <h6><?php if((getDifference($Finex))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?> $<?php echo getDifference($Finex) ?>  (<?php echo getPercentage($Finex)?>%)</h6>
                         </div>
                     </div>
                 </button>
@@ -196,11 +218,11 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
-                        <h2 class="h2-responsive product-name">
+                        <h3 class="h2-responsive product-name">
                                 <strong><?php echo STOCK3 ?></strong>
                                 <button class="btn btn-danger" id="stock3_sell" style="float:right;" onclick="showMultipleStocks('<?php echo STOCK3 ?>')">Sell</button>
                                 <button class="btn btn-primary" id="stock3_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK3 ?>');">Buy</button>
-                            </h2>
+                            </h3>
                             <hr>
                             <div class="buy-tab">
                                 <div class="container">
@@ -241,9 +263,9 @@
                 <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock4" onclick="showStocks('<?php echo STOCK4 ?>');showMultipleStocks('<?php echo STOCK4 ?>')">
                     <h3><?php echo STOCK4 ?></h3>
                     <div class="stocks">
-                        <div style="text-align:right; <?php if((getDifference($Google))>0) echo 'color:green'; else echo 'color:red'; ?>">
-                            <h1>$<?php echo $Google['current_price']?></h1>
-                            <h6><?php if((getDifference($Google))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?> $<?php echo getDifference($Google) ?>  (<?php echo getPercentage($Google)?>%)</h6>
+                        <div style="text-align:right; <?php if((getDifference($NCF))>0) echo 'color:green'; else echo 'color:red'; ?>">
+                            <h1>$<?php echo $NCF['current_price']?></h1>
+                            <h6><?php if((getDifference($NCF))>0) echo '<i class="fa fa-caret-up" aria-hidden="true"></i>'; else echo '<i class="fa fa-caret-down" aria-hidden="true"></i>'; ?> $<?php echo getDifference($NCF) ?>  (<?php echo getPercentage($NCF)?>%)</h6>
                         </div>
                     </div>
                 </button>
@@ -253,11 +275,11 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-body">
-                    <h2 class="h2-responsive product-name">
+                    <h3 class="h2-responsive product-name">
                             <strong><?php echo STOCK4 ?></strong>
                             <button class="btn btn-danger" id="stock4_sell" style="float:right;" onclick="showMultipleStocks('<?php echo STOCK4 ?>')">Sell</button>
                             <button class="btn btn-primary" id="stock4_buy" style="float:right;margin-right:15px;" onclick="showStocks('<?php echo STOCK4 ?>');">Buy</button>
-                        </h2>
+                        </h3>
                         <hr>
                         <div class="buy-tab">
                             <div class="container">
@@ -301,6 +323,9 @@
 <style>
     body{
         background: #f9fbff !important;
+    }
+    .scenario{
+      text-align: center;
     }
    #cash_box,#gp_box{
        float: left;
@@ -362,6 +387,7 @@
       background: rgb(247, 249, 248);
       width: 100%
   }
+
 
   /*This disables the double tap to zoom on mobile devices*/
   button {
