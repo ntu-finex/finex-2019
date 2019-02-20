@@ -49,23 +49,23 @@
             $listing_count5 = ($query->fetch())['listing_count5'];
 
             switch($sale_id){
-              case "sale_1": $listing_count1++;
+              case "sale_1": $listing_count1--;
                               $stmt = $conn->prepare("UPDATE teams SET cash=?, listing_count1 = ? WHERE teamName=?");
                               $stmt->execute([$sellerCash+$price,$listing_count1,$seller]);
                               break;
-              case "sale_2": $listing_count2++;
+              case "sale_2": $listing_count2--;
                             $stmt = $conn->prepare("UPDATE teams SET cash=?,listing_count2 = ? WHERE teamName=?");
                             $stmt->execute([$sellerCash+$price,$listing_count2,$seller]);
                             break;
-              case "sale_3": $listing_count3++;
+              case "sale_3": $listing_count3--;
                             $stmt = $conn->prepare("UPDATE teams SET cash=?,listing_count3 = ? WHERE teamName=?");
                             $stmt->execute([$sellerCash+$price,$listing_count3,$seller]);
                             break;
-              case "sale_4": $listing_count4++;
+              case "sale_4": $listing_count4--;
                             $stmt = $conn->prepare("UPDATE teams SET cash=?,listing_count4 = ? WHERE teamName=?");
                             $stmt->execute([$sellerCash+$price,$listing_count4,$seller]);
                             break;
-              case "sale_5": $listing_count5++;
+              case "sale_5": $listing_count5--;
                             $stmt = $conn->prepare("UPDATE teams SET cash=?,listing_count5 = ? WHERE teamName=?");
                             $stmt->execute([$sellerCash+$price,$listing_count5,$seller]);
                             break;
