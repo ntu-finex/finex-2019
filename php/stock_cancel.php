@@ -24,11 +24,29 @@ if($query->rowCount() == 0){
     $stmt = $conn->prepare("SELECT * FROM teams where teamName=?");
     $stmt->execute([$seller]);
     $user = $stmt->fetch();
-    $listing_count = $user['listing_count'];
-    $listing_count--;
 
-    $stmt = $conn->prepare("UPDATE teams SET listing_count=? WHERE teamName =?");
-    $stmt->execute([$listing_count, $seller]);
+    switch($sale_id){
+      case "sale_1": $listing_count1--;
+                      $stmt = $conn->prepare("UPDATE teams SET listing_count1 = ? WHERE teamName=?");
+                      $stmt->execute([$listing_count1, $seller]);
+                      break;
+      case "sale_2": $listing_count2--;
+                      $stmt = $conn->prepare("UPDATE teams SET listing_count2 = ? WHERE teamName=?");
+                      $stmt->execute([$listing_count2, $seller]);
+                      break;
+      case "sale_3": $listing_count3--;
+                      $stmt = $conn->prepare("UPDATE teams SET listing_count3 = ? WHERE teamName=?");
+                      $stmt->execute([$listing_count3, $seller]);
+                      break;
+      case "sale_4": $listing_count4--;
+                      $stmt = $conn->prepare("UPDATE teams SET listing_count4 = ? WHERE teamName=?");
+                      $stmt->execute([$listing_count4, $seller]);
+                      break;
+      case "sale_5": $listing_count5--;
+                      $stmt = $conn->prepare("UPDATE teams SET listing_count5 = ? WHERE teamName=?");
+                      $stmt->execute([$listing_count5, $seller]);
+                      break;
+    }
 
     echo $stock['name'];
 }
