@@ -112,7 +112,7 @@
           return false;
         }
 
-        var priceStock = prompt("Please enter your listing price for the stocks");
+        var priceStock = prompt("Please enter your listing price for one stock.");
         if (priceStock == null) {
             return false;
         }else if(priceStock <= 0){
