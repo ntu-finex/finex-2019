@@ -76,6 +76,8 @@
                                 break;
             case "station_5": $query = $conn->prepare("UPDATE teams SET station_5=?,cash=? WHERE teamName=?");
                                 break;
+            case "station_6": $query = $conn->prepare("UPDATE teams SET station_6=?,cash=? WHERE teamName=?");
+                                break;
             default: echo "Got Error"; break;
         }
 
