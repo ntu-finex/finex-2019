@@ -18,7 +18,11 @@
     $teamName = $_SESSION['teamName'];
     $game_point = 0;
     $cash = 0;
-
+    $servername = DB_HOST;
+    $username = DB_USERNAME;
+    $password = DB_PASSWORD;
+    $conn = new PDO("mysql:host=$servername;dbname=ntu-iic_database", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     //stock.php functions
     $stocks = new Stock;
@@ -56,11 +60,7 @@
         <article class="scenario">
           <?php
           require_once('secure/config.php');
-          $servername = DB_HOST;
-          $username = DB_USERNAME;
-          $password = DB_PASSWORD;
-          $conn = new PDO("mysql:host=$servername;dbname=ntu-iic_database", $username, $password);
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             $sql = $conn->prepare("SELECT * FROM utility WHERE name='current_sce'");
             $sql->execute();
             $current_sce = $sql->fetch()['number'];
@@ -68,6 +68,9 @@
             $stmt->execute([$current_sce]);
             $scenario = $stmt->fetch();
             echo $scenario['description'];
+            $query = $conn->prepare("SELECT * FROM utility WHERE name='button_disabled'");
+            $query->execute();
+            $disable = $query->fetch()['number'];
           ?>
 
         </article>
@@ -86,7 +89,7 @@
         <div class="row" style="display:flex;">
             <div class="col-md-3">
                 <!-- <button type="button" class="btn btn-primary" onclick="purchaseStock()">click me</button> -->
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock1" onclick="showStocks('<?php echo STOCK1 ?>');showMultipleStocks('<?php echo STOCK1 ?>');">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock1" onclick="showStocks('<?php echo STOCK1 ?>');showMultipleStocks('<?php echo STOCK1 ?>');" <?php if($disable==1) echo 'disabled'?>>
                     <h3><?php echo STOCK1 ?></h3>
                     <div class="stocks" >
                         <div style="text-align:right; <?php if((getDifference($Tezla))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -146,7 +149,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock2" onclick="showStocks('<?php echo STOCK2 ?>');showMultipleStocks('<?php echo STOCK2 ?>')">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock2" onclick="showStocks('<?php echo STOCK2 ?>');showMultipleStocks('<?php echo STOCK2 ?>')" <?php if($disable==1) echo 'disabled'?>>
                     <h3><?php echo STOCK2 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($OSBS))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -203,7 +206,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock3" onclick="showStocks('<?php echo STOCK3 ?>');showMultipleStocks('<?php echo STOCK3 ?>');">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock3" onclick="showStocks('<?php echo STOCK3 ?>');showMultipleStocks('<?php echo STOCK3 ?>');" <?php if($disable==1) echo 'disabled'?>>
                     <h3><?php echo STOCK3 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($Finex))>0) echo 'color:green'; else echo 'color:red'; ?>">
@@ -260,7 +263,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock4" onclick="showStocks('<?php echo STOCK4 ?>');showMultipleStocks('<?php echo STOCK4 ?>')">
+                <button id="stocks_box" type="button" data-toggle="modal" data-target="#stock4" onclick="showStocks('<?php echo STOCK4 ?>');showMultipleStocks('<?php echo STOCK4 ?>')" <?php if($disable==1) echo 'disabled'?>>
                     <h3><?php echo STOCK4 ?></h3>
                     <div class="stocks">
                         <div style="text-align:right; <?php if((getDifference($NCF))>0) echo 'color:green'; else echo 'color:red'; ?>">
