@@ -16,7 +16,7 @@ require('classes/stock.php');
 
   $stationName = $_SESSION['station'];
   $stationNum = $_SESSION['stationNum'];
-
+  //just a comment.
   $stocks = new Stock;
   $Tezla = $stocks->getCompanyStock(STOCK1);
   $OSBSa = $stocks->getCompanyStock(STOCK2);
