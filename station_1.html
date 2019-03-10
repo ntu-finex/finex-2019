@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>No Pain, No Gain!</title>
+        <meta charset="utf-8">
+        <meta content="width=device-width,initial-scale=1.0" name="viewport" >
+        <link rel="stylesheet" href="css/w3.css" type="text/css" />
+        <link rel="icon" href="images/FinexLogo.jpeg"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    <!-- Latest compiled and minified JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Kreon" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="container">
+            <br>
+            <div><h1 style="text-align: center;"><strong>Station 1: No Pain No Gain</strong></h1></div>
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <img class="d-block w-100" src="images/fareastsquare2.jpg" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                    <img class="d-block w-100" src="images/fareastsquare3.png" alt="Second slide">
+                    </div>
+                    <!-- <div class="carousel-item">
+                    <img class="d-block w-100" src="images/fareastsquare3.png" alt="Third slide">
+                    </div> -->
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <section>
+                <div>
+                    <u><h3><strong>Venue</strong></h3></u>
+                    <p>Far East Square @ Chinatown</p>
+                    <div class="mapouter">
+                        <div class="gmap_canvas"><iframe style="align-content: center;" width="269" height="264" id="gmap_canvas" src="https://maps.google.com/maps?q=far%20east%20square%20chinatown&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.jetzt-drucken-lassen.de">jetzt-drucken-lassen.de</a></div><style>.mapouter{text-align:right;height:264px;width:269px;}.gmap_canvas {overflow:hidden;background:none!important;height:264px;width:269px;}</style></div>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <u><h3><strong>Instructions</strong></h3></u>
+                    <p>This game has a total of 4 segments, 2 competitive and 2 non-competitive.</p>
+                </div>
+            </section>
+            <section>
+                    <h4><u><strong>Stage 1: MCQs (Competitive)</strong></u></h4>
+                    <p>There will be a total of 10 MCQ questions (3 options). Each team is given a set of &ldquo;1/2/3&rdquo; signs. The teams are given <strong>10 seconds</strong> to answer each question by raising their signs. First team to raise their sign will be allowed to answer first.</p>
+                    <p>Points are allocated as follow:</p>
+                    <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                    <td >
+                    <p>&nbsp;</p>
+                    </td>
+                    <td >
+                    <p>Correct answer</p>
+                    </td>
+                    <td >
+                    <p>Wrong answer</p>
+                    </td>
+                    <td >
+                    <p>No answer</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td >
+                    <p>1st to raise</p>
+                    </td>
+                    <td >
+                    <p>200</p>
+                    </td>
+                    <td >
+                    <p>- 40</p>
+                    </td>
+                    <td >
+                    <p>0</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td >
+                    <p>2nd to raise</p>
+                    </td>
+                    <td >
+                    <p>100</p>
+                    </td>
+                    <td>
+                    <p>- 20</p>
+                    </td>
+                    <td >
+                    <p>0</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    <hr>
+                    <h4><u><strong>Stage 2: Memory Card Game (Non-competitive)</strong></u></h4>
+                    <p>This game is played by the participants within their team. There is a total of 3 mins allocated to this stage. Participants from each team are to open only 2 cards at one time. The 2 cards can be removed from the layout only when they are identical.</p>
+                    <p>There are 3 sets of cards with varying difficulty (basic, intermediate, advanced). Each difficulty level will have different number of pairs of cards. The team will choose one difficulty level to complete. Points awarded will be based on the amount of time taken. If the team is able to complete one set within 3 mins, they can move on to another set and continue playing until the full 3 mins is up. The points awarded will be cumulative.</p>
+                    <p><strong>Basic (32 cards - 16 pairs - 4x8 layout):</strong></p>
+                    <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                    <td width="303">
+                    <p><strong>Timing (X min)</strong></p>
+                    </td>
+                    <td width="303">
+                    <p><strong>Points awarded</strong></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>X&le;1.5</p>
+                    </td>
+                    <td width="303">
+                    <p>1000</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>1.5&lt;X&le;2</p>
+                    </td>
+                    <td width="303">
+                    <p>750</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>X&gt;2</p>
+                    </td>
+                    <td width="303">
+                    <p>500</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    <p><strong>Intermediate (40 cards - 20 pairs - 4x5 layout):</strong></p>
+                    <table class="table table-striped" width="605">
+                    <tbody>
+                    <tr>
+                    <td width="303">
+                    <p><strong>Timing</strong></p>
+                    </td>
+                    <td width="303">
+                    <p><strong>Points awarded</strong></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>X&le;1.5</p>
+                    </td>
+                    <td width="303">
+                    <p>1500</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>1.5&lt;X&le;2</p>
+                    </td>
+                    <td width="303">
+                    <p>1200</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>X&gt;2</p>
+                    </td>
+                    <td width="303">
+                    <p>900</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    
+                    <strong><p>Advanced (48 cards - 24 pairs - 6x8 layout):</p></strong>
+                    <table class="table table-striped" width="605">
+                    <tbody>
+                    <tr>
+                    <td width="303">
+                    <p><strong>Timing</strong></p>
+                    </td>
+                    <td width="303">
+                    <p><strong>Points awarded</strong></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>X&le;1.5</p>
+                    </td>
+                    <td width="303">
+                    <p>2000</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>1.5&lt;X&le;2</p>
+                    </td>
+                    <td width="303">
+                    <p>1750</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td width="303">
+                    <p>X&gt;2</p>
+                    </td>
+                    <td width="303">
+                    <p>1300</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    <hr>
+                    <h4><u><strong>Stage 3: Play Hard Earn More (Non-competitive)</strong></u></h4>
+                    <p>In this station, the team has to compete in several mini games. First would be &ldquo;Scissors, paper, stone&rdquo;, followed by &ldquo;Multiplication questions&rdquo; and last but not least &ldquo;Ping Pong Ball Pass&rdquo;.</p>
+                    <p>&nbsp;</p>
+                    <h5><strong>Scissors paper stone (30secs)</strong></h5>
+                    <hr>
+                    <p>All members of the team are required to go against the game master. Each of them have to win 2 sets of &ldquo;scissors paper stone&rdquo; in order to proceed to the next round.</p>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <td>
+                            <p><strong>No. of wins</strong></p>
+                            </td>
+                            <td>
+                            <p><strong>Points awarded</strong></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <p>All</p>
+                            </td>
+                            <td>
+                            <p>500</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    <h5><strong>Multiplication</strong></h5>
+                    <hr>
+                    <p>Each member of the team has to take turns to respond to the multiplication questions presented to them and will be rewarded accordingly to their performances. They are allowed to choose between 2 different levels of difficulties.</p>
+                    <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p><strong>No. of correct answers </strong></p>
+                    <p><strong>&nbsp;</strong></p>
+                    <p><strong>EASY</strong></p>
+                    </td>
+                    <td>
+                    <p><strong>Points awarded</strong></p>
+                    </td>
+                    <td >
+                    <p><strong>No. of correct answers </strong></p>
+                    <p><strong>&nbsp;</strong></p>
+                    <p><strong>ADVANCED</strong></p>
+                    </td>
+                    <td >
+                    <p><strong>Points awarded</strong></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>X&ge;10</p>
+                    </td>
+                    <td>
+                    <p>500&nbsp;</p>
+                    </td>
+                    <td>
+                    <p>X&ge;10</p>
+                    </td>
+                    <td>
+                    <p>600</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>5&le;X&lt;10</p>
+                    </td>
+                    <td>
+                    <p>350&nbsp;</p>
+                    </td>
+                    <td>
+                    <p>5&le;X&lt;10</p>
+                    </td>
+                    <td>
+                    <p>450</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>X&lt;5</p>
+                    </td>
+                    <td >
+                    <p>150</p>
+                    </td>
+                    <td >
+                    <p>X&lt;5</p>
+                    </td>
+                    <td >
+                    <p>300</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    <h5><strong>Pass the Items</strong></h5>
+                    <hr>
+                    <p>Each member will be given a pair of chopsticks and you are required to pick up the ping pong balls or beads and place them into the cup. They are allowed to choose between 2 different levels of difficulties.</p>
+                    <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                    <td >
+                    <p><strong>No. of items</strong></p>
+                    <p><strong>&nbsp;</strong></p>
+                    <p><strong>&nbsp;</strong></p>
+                    <p><strong>EASY</strong></p>
+                    </td>
+                    <td >
+                    <p><strong>Points awarded</strong></p>
+                    </td>
+                    <td >
+                    <p><strong>No. of correct answers </strong></p>
+                    <p><strong>&nbsp;</strong></p>
+                    <p><strong>ADVANCED</strong></p>
+                    </td>
+                    <td>
+                    <p><strong>Points awarded</strong></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>X&ge;10</p>
+                    </td>
+                    <td>
+                    <p>500</p>
+                    </td>
+                    <td >
+                    <p>X&ge;10</p>
+                    </td>
+                    <td >
+                    <p>600</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td >
+                    <p>5&le;X&lt;10</p>
+                    </td>
+                    <td >
+                    <p>350</p>
+                    </td>
+                    <td >
+                    <p>5&le;X&lt;10</p>
+                    </td>
+                    <td >
+                    <p>450</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td >
+                    <p>X&lt;5</p>
+                    </td>
+                    <td >
+                    <p>150</p>
+                    </td>
+                    <td >
+                    <p>X&lt;5</p>
+                    </td>
+                    <td >
+                    <p>300</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <hr>
+                    <h4><u><strong>Stage 4: Charades (Competitive/Non-competitive)</strong></u></h4>
+                    <p>This game involves one representative of the team to act out the charades presented by the game helper. His/her teammates are then required to guess the corresponding charades. The duration for this game is <strong>3 minutes</strong>. Points awarded will be based on the amount of correct answer given. If there are words that you stumble upon, you can request to skip.</p>
+                    <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p><strong>No. of correct answers</strong></p>
+                    </td>
+                    <td >
+                    <p><strong>Points awarded</strong></p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>X&ge;10</p>
+                    </td>
+                    <td>
+                    <p>2000</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td >
+                    <p>5&le;X&lt;10</p>
+                    </td>
+                    <td>
+                    <p>1500</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>X&lt;5</p>
+                    </td>
+                    <td>
+                    <p>1000</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <p><strong>&nbsp;</strong></p>
+                    <hr>
+                    <h4><strong>Scoring System:</strong>&nbsp;</h4>
+                    <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p>Ranking</p>
+                    </td>
+                    <td>
+                    <p>FINEX Points</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>1</p>
+                    </td>
+                    <td >
+                    <p>5000&nbsp;</p>
+                    <p>&nbsp;</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>2</p>
+                    </td>
+                    <td >
+                    <p>4000&nbsp;</p>
+                    <p>&nbsp;</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <p>3</p>
+                    </td>
+                    <td>
+                    <p>3000&nbsp;</p>
+                    <p>&nbsp;</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td >
+                    <p>4</p>
+                    </td>
+                    <td >
+                    <p>2000&nbsp;</p>
+                    <p>&nbsp;</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td >
+                    <p>5</p>
+                    </td>
+                    <td>
+                    <p>1000&nbsp;</p>
+                    <p>&nbsp;</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+            </section>
+        </div>
+        
+    </body>
+</html>
+
+<style>
+    section{
+        padding-top:30px;
+    }
+</style>
