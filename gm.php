@@ -116,6 +116,7 @@ require('classes/stock.php');
           </div>
           <hr>
           <div id='endGameDiv'>
+            <button class="btn btn-success btn-block" type="button" id="startGame">Start Game</button> 
             <button class="btn btn-danger btn-block" type="button" name="button" id="endGame">END THE GAME</button>
           </div>
           <br>
@@ -130,7 +131,23 @@ require('classes/stock.php');
 <script type="text/javascript">
     $(document).ready(function(){
       $('#endGame').click(endGame);
+      $('#startGame').click(startGame);
     });
+
+    function startGame(){
+      if(!(confirm("Are you sure you want to start the game?"))){
+        alert("Action is cancelled.");
+        return false;
+      }
+
+      $.ajax({
+        url: 'php/startGame.php',
+        method: 'post',
+        success: function(response){
+          alert(response);
+        }
+      });
+    }
 
     function endGame(){
       if(!(confirm("Are you sure you want to end the game?"))){
