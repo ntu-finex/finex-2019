@@ -267,6 +267,8 @@
       Usage: Show all the stocks on the buy tab, according to the sale_id and different users.
     */
     function showStocks($stockName){
+        jQuery('.STOCK1S').empty();
+        jQuery('.STOCK2S').empty();
       var arrayOwner = [];
         $.ajax({
             url: 'php/stock_show.php',
@@ -276,8 +278,7 @@
             },
             dataType: 'json',
             success:function(result){
-                jQuery('.STOCK1S').empty();
-                jQuery('.STOCK2S').empty();
+                
                 var counter = 0;
                 var companyStock = "";
                 var stocks = "";
@@ -421,6 +422,8 @@
     } */
 
     function showMultipleStocks($stockName){
+        jQuery('.stocks-owned').empty();
+        jQuery('.ownedQty').empty();
         var stocks = "";
         var length = 0; //stocks available for sale / not listed yet
         var div = "";
@@ -433,8 +436,7 @@
             },
             dataType: 'json',
             success:function(result){ //returns all the stocks owned
-                jQuery('.stocks-owned').empty();
-                jQuery('.ownedQty').empty();
+                
 
                 $.each(result, function(key, value) { //for each value in list will be in value
                     var name = value['name'];
