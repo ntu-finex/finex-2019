@@ -84,7 +84,7 @@
         <h1 style="text-align:center;display:none;" class="stationNum"><?php echo $stationNum ?></h1>
         <h1 style="text-align:center;"><strong><?php echo $stationName ?></strong></h1>
         <br>
-        <p style="color:red;">Search for the team name and click the button to enter their points.</p>
+        <i><p style="color:red;text-align:center;">Instructions: Search for the team name and click the button to enter their points.</p></i>
         <hr>
         <input type="text" placeholder="Search for team name here" class="form-control group teamName">
         <br>
