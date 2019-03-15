@@ -7,7 +7,7 @@
       header("Location: admin_login.php");
   }
 
-  if(isset($_SESSION['station']) && $_SESSION['station'] == "GM"){
+  else if(isset($_SESSION['station']) && $_SESSION['station'] == "GM"){
       header("Location: gm.php");
   }
 
