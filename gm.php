@@ -42,17 +42,42 @@ require('classes/stock.php');
         <section class="scenario">
           <h2 style="text-align:center;"><i><strong>Scenarios</strong></i></h2>
           <hr>
-          <h3>Current Scenario</h3>
+          <div>
+            <select id="scenarioID">
+            <?php
+              $query = $conn->prepare("SELECT * FROM scenarios WHERE available=1");
+              $query->execute();
+              $scenarios = $query->fetchAll();
+              foreach($scenarios as $scenario){
+                echo '<option value='.$scenario['id'].'>  '.$scenario['effect'].' : '.$scenario['description'].'</option>';
+              }
+            ?>
+            </select>
+            <br>
+            <button class="btn btn-block btn-warning" id="updateScenario">Update Scenario</button>
+          </div>
           <hr>
-
-
-          <h3>Previous Scenario</h3>
+          <h2>Current Scenario</h2>
           <hr>
+          <?php
+             $sql = $conn->prepare("SELECT * FROM utility WHERE name='current_sce'");
+             $sql->execute();
+             $current_sce = $sql->fetch()['number'];
+             $stmt = $conn->prepare("SELECT * FROM scenarios WHERE id=?");
+             $stmt->execute([$current_sce]);
+             $scenario = $stmt->fetch();
+             echo $scenario['description'];
+             $query = $conn->prepare("SELECT * FROM utility WHERE name='button_disabled'");
+             $query->execute();
+             $disable = $query->fetch()['number'];
+          ?>
+          <br>
+          <br>
 
         </section>
         <section class="stock_prices">
           <h2 style="text-align:center;"><i><strong>Stock Prices</strong></i></h2>
-          <form action="php/setStockPrices.php" method="post" >
+          <form action="php/setStockPrices.php" method="post"  onsubmit="return confirm('Are you sure you want to submit?');">
             <div class="form-group">
               <label for="sel1">Select stocks:</label>
               <select class="form-control" id="sel1" name="stockName">
@@ -132,7 +157,26 @@ require('classes/stock.php');
     $(document).ready(function(){
       $('#endGame').click(endGame);
       $('#startGame').click(startGame);
+      $('#updateScenario').click(updateScenario);
     });
+
+    function updateScenario(){
+      if(!(confirm("Are you sure you want to update the scenario"))){
+        alert("Action is cancelled.");
+        return false;
+      }
+      var scenarioID = $('#scenarioID').val();
+      $.ajax({
+        url: 'php/applyScenario.php',
+        method: 'post',
+        data:{
+          scenarioID : scenarioID
+        },
+        success: function(response){
+          history.go(0)
+        }
+      });
+    }
 
     function startGame(){
       if(!(confirm("Are you sure you want to start the game?"))){
@@ -170,5 +214,7 @@ require('classes/stock.php');
     background: red;
     color: white;
   }
-
+  #scenarioID{
+    width: 90%;
+  }
 </style>

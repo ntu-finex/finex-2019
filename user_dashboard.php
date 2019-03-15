@@ -64,7 +64,7 @@
             $sql = $conn->prepare("SELECT * FROM utility WHERE name='current_sce'");
             $sql->execute();
             $current_sce = $sql->fetch()['number'];
-            $stmt = $conn->prepare("SELECT * FROM scenario WHERE id=?");
+            $stmt = $conn->prepare("SELECT * FROM scenarios WHERE id=?");
             $stmt->execute([$current_sce]);
             $scenario = $stmt->fetch();
             echo $scenario['description'];
