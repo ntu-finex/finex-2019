@@ -83,6 +83,8 @@
         <br>
         <h1 style="text-align:center;display:none;" class="stationNum"><?php echo $stationNum ?></h1>
         <h1 style="text-align:center;"><strong><?php echo $stationName ?></strong></h1>
+        <br>
+        <p style="color:red;">Search for the team name and click the button to enter their points.</p>
         <hr>
         <input type="text" placeholder="Search for team name here" class="form-control group teamName">
         <br>
@@ -105,8 +107,9 @@
                 </button>
               </div>
               <div class="modal-body">
+                <h6>Enter the points here:<h6>
                 <select class="form-control" name="points" id="points">
-                  <option value=""></option>
+                  <option value="">0</option>
                   <option value="5000">5000</option>
                   <option value="4000">4000</option>
                   <option value="3000">3000</option>
