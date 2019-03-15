@@ -31,7 +31,7 @@
   //       back to not available for sale :)
   $update = $conn->prepare("UPDATE teams SET cash=? WHERE teamName =?");
   $sql = $conn->prepare("SELECT cash FROM teams WHERE teamName=?");
-  $updateStock = $conn->prepare("UPDATE stocks SET available = 0, owner=? WHERE id=?");
+  $updateStock = $conn->prepare("UPDATE stocks SET available = 0, sale_1=0,sale_2=0,sale_3=0,sale_4=0,sale_5=0, owner=? WHERE id=?");
   $disable = $conn->prepare("UPDATE utility SET number = 1 WHERE name='button_disabled'"); //disable the button
 
   for($i = 0; $i < $stocksCount; $i++){
