@@ -135,5 +135,6 @@
         color: white;
         font-style: bold;
         font-size: 20px;
+        width: 360px;
     }
 </style>
