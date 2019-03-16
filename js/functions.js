@@ -300,9 +300,11 @@
                   return self.indexOf(value) === index;
                 }); //filter out the seller names (not including company's);
 
+
                 $.each(arraySellerName, function(index,value){
                   var owner = value;
 
+                sale_1_div = sale_2_div = sale_3_div = sale_4_div = sale_5_div = "";
                   //sale_1 contains the listing that has sale_1 as 1
                   var sale_1 = arrayUserListings.filter(function(value){
                     return value['sale_1'] == 1 && value['owner'] == owner;
