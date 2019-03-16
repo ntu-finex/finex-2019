@@ -370,6 +370,7 @@
                     $(".STOCK2S").append(companyStock).hide().fadeIn(700);
                 }
                 if(stocks != ""){
+                    jQuery('.STOCK1S').empty();
                     $(".STOCK1S").append(stocks).hide().fadeIn(700); //Value as a specific item from list.
                 }
             }
