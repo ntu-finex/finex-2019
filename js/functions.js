@@ -20,7 +20,6 @@
         }
     })
 
-
     $(document).on('click', '.btn-pluss',function(){
         var qty = $('.companyStock>.quantity').html();
         if($(this).parent().siblings('input').val() == qty){
